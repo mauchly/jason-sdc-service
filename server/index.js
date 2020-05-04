@@ -62,7 +62,7 @@ app.delete('/listingInfo', (req, res) => {
     console.log('error', err);
     res.status(404).end('COULD NOT UPDATE');
   });
-})
+});
 
 app.post('/getBookedDates', (req, res) => {
   var listingId = req.body.listingId;

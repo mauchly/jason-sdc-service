@@ -39,6 +39,7 @@ const updateListingInfo = (update) => {
         updateQuery += `${keys[i]} = update[${keys[i]}], `;
     }
   }
+
   return new Promise((resolve, reject) => {
     let updateStr = `UPDATE listingItems SET ${updateQuery}`;
     connection.query(updateStr, (err, results) => {
@@ -52,6 +53,7 @@ const updateListingInfo = (update) => {
 };
 
 const deleteListing = (listingId) => {
+
   return new Promise((resolve, reject) => {
     let deleteQuery = `DELETE FROM listingItems WHERE listingId = ${listingId}`;
     connection.query(deleteQuery, (err, results) => {
