@@ -10,6 +10,7 @@ console.log('price', price)
 var listingTableData = ``;
 var bookingTableData = ``;
 var arrOfCalendarDays = [];
+var numOfListings = 10;
 var listingNames = [
   'Super_Cute_Retro_Airstream',
   'Redundant_Driver_Strategic_house',
@@ -113,13 +114,11 @@ var listingNames = [
   'Online_Bus_Integrated_house'
 ];
 
-
-
 var toFillListingItemsTable = function () {
-  var listingId = 10001;
+  var listingId = 1;
   var weekend;
  //set random number to set max num of Guests
-  for (var i = 0; i < 100; i++) {
+  for (var i = 0; i < numOfListings; i++) {
    //random price using Faker npm package
     var pricePerNight = faker.commerce.price(100,180.00,2); //range between 100 - 180
     //random value to get weekend variable either true or false
@@ -223,7 +222,7 @@ var setUpSixBookingsPerListing = function (arr, listingId) {
 
 var toFillBookingsTable = function (arr, listingId) {
 
-  for (var i = 0; i < 100; i++) {
+  for (var i = 0; i < numOfListings; i++) {
     bookingTableData += setUpSixBookingsPerListing(arr, listingId);
     listingId++;
   }
@@ -233,17 +232,8 @@ var toFillBookingsTable = function (arr, listingId) {
 
 };
 
-toFillBookingsTable(arrOfCalendarDays, 10001);
+toFillBookingsTable(arrOfCalendarDays, 1);
 
-var writeSchema = function (callback) {
-  fs.writeFile ('../schema.sql', schema, function (err, results) {
-    if (err) {
-      console.log('err', err);
-    } else {
-      console.log('success');
-    }
-  })
-}
 //console.log('listingTableData', listingTableData)
 var schema = `
 DROP DATABASE IF EXISTS reservation_service;
@@ -282,6 +272,14 @@ ${listingTableData}
 ${bookingTableData}
 
 `
+var writeSchema = function (callback) {
+  fs.writeFile ('schema.sql', schema, function (err, results) {
+    if (err) {
+      console.log('err', err);
+    } else {
+      console.log('success');
+    }
+  })
+}
 //write Schema into Schema.sql file
 writeSchema();
-

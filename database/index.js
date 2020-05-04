@@ -28,7 +28,43 @@ const getBookedDates = (listingId, callback) => {
   })
 }
 
+const updateListingInfo = (update) => {
+  let keys = Object.keys(update);
+  let updateQuery = '';
+
+  for (let i = 0; i < keys.length; i++) {
+    if (i === keys.length - 1) {
+        updateQuery += `${keys[i]} = update[${keys[i]}]`;
+    } else {
+        updateQuery += `${keys[i]} = update[${keys[i]}], `;
+    }
+  }
+  return new Promise((resolve, reject) => {
+    let updateStr = `UPDATE listingItems SET ${updateQuery}`;
+    connection.query(updateStr, (err, results) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(results);
+      }
+    });
+  });
+};
+
+const deleteListing = (listingId) => {
+  return new Promise((resolve, reject) => {
+    let deleteQuery = `DELETE FROM listingItems WHERE listingId = ${listingId}`;
+    connection.query(deleteQuery, (err, results) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(results);
+      }
+    });
+  });
+};
+
 
 module.exports = {
-  connection, getListingInfo, getBookedDates
+  connection, getListingInfo, getBookedDates, updateListingInfo, deleteListing
 }

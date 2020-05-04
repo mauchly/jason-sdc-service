@@ -1,8 +1,8 @@
 {
-  "name": "FEC_airbnb_Ying_service",
+  "name": "sdc_airbnb_reservation_service",
   "version": "1.0.0",
-  "description": "airbnb_FEC",
-  "author": "Ying",
+  "description": "airbnb_sdc",
+  "author": "Jason Wiesner",
   "license": "",
   "engines": {
     "node": ">=6.13.0"

@@ -2,9 +2,9 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
-const { connection, getListingInfo, getBookedDates } = require ('../database');
+const { connection, getListingInfo, getBookedDates, updateListingInfo, deleteListing } = require ('../database');
 const fs = require('fs');
-const fullPath = '/Users/yingwenchen/Desktop/HR project/HR_RPT/FEC/FEC_Yingwen_service/client/dist/index.html';
+const fullPath = '/Users/jasonjacob/Desktop/seniorProjects/sdc/jason-sdc-service/client/dist/index.html';
 
 const app = express();
 app.use(morgan('dev'));
@@ -38,6 +38,31 @@ app.get('/listingInfo', (req, res) => {
   });
 })
 
+app.put('/listingInfo', (req, res) => {
+  let update = req.query.update;
+  updateListingInfo(update)
+  .then((results) => {
+    let stringifiedResults = JSON.stringify(results);
+    res.status(200).end(stringifiedResults);
+  })
+  .catch((err) => {
+    console.log('error', err);
+    res.status(404).end('COULD NOT UPDATE');
+  });
+});
+
+app.delete('/listingInfo', (req, res) => {
+  let listingId = req.query.listingId;
+  deleteListing(listingId)
+  .then((results) => {
+    let stringifiedResults = JSON.stringify(results);
+    res.status(200).end(stringifiedResults);
+  })
+  .catch((err) => {
+    console.log('error', err);
+    res.status(404).end('COULD NOT UPDATE');
+  });
+})
 
 app.post('/getBookedDates', (req, res) => {
   var listingId = req.body.listingId;
@@ -54,6 +79,8 @@ app.post('/getBookedDates', (req, res) => {
   })
 
 })
+
+
 app.get('/:id', (req, res) => {
  // console.log('hit here', __dirname)
   //res.render(fullPath)
