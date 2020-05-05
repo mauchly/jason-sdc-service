@@ -1,4 +1,3 @@
-
 DROP DATABASE IF EXISTS reservation_service;
 
 CREATE DATABASE reservation_service;
@@ -29,4 +28,18 @@ CREATE TABLE bookings (
   infants int default 0,
   PRIMARY KEY(id)
 );
+
+LOAD DATA LOCAL INFILE '/Users/jasonjacob/Desktop/seniorProjects/sdc/jason-sdc-service/database/listingInfoCSV'
+INTO TABLE listingItems
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+LOAD DATA LOCAL INFILE '/Users/jasonjacob/Desktop/seniorProjects/sdc/jason-sdc-service/database/bookingsInfoCSV'
+INTO TABLE bookings
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
 

@@ -1,19 +1,19 @@
 var faker = require ('faker');
 var fs = require('fs');
-// const EventEmitter = require('events');
-// const emitter = new EventEmitter()
-// emitter.setMaxListeners(100);
+const EventEmitter = require('events').EventEmitter.defaultMaxListeners = 100;
+// const emitter = new EventEmitter();
 
 var price = faker.commerce.price(100,180.00,2)
 console.log('price', price)
 
 
 
-var listingTableData = `listingId, pricePerNight, weekend, weekendPrice, maxGuests, tax\n`;
-var bookingTableData = `listingId, nights, month, checkIn, checkOut, guests, children, infants\n`;
+var listingTableData = `id, listingId, pricePerNight, weekend, weekendPrice, maxGuests, tax\n`;
+var bookingTableData = `id, listingId, nights, month, checkIn, checkOut, guests, children, infants\n`;
 var arrOfCalendarDays = [];
 var numOfListings = 10000;
 var currentListingId = 1;
+let id = 1;
 
 var toFillListingItemsTable = function (currentListingId) {
   var listingId = currentListingId;
@@ -36,7 +36,7 @@ var toFillListingItemsTable = function (currentListingId) {
     //add random value to set weekend as true or false
     // listingTableData += `INSERT into listingItems (listingId, pricePerNight, weekend, weekendPrice, maxGuests, tax) VALUES (${listingId}, ${pricePerNight}, ${weekend}, 1.1, ${maxGuests}, 1.12);\n `;
 
-    listingTableData += `${listingId}, ${pricePerNight}, ${weekend}, 1.1, ${maxGuests}, 1.12\n`;
+    listingTableData += `${listingId}, ${listingId}, ${pricePerNight}, ${weekend}, 1.1, ${maxGuests}, 1.12\n`;
 
     listingId++;
   }
@@ -114,9 +114,10 @@ var setUpSixBookingsPerListing = function (arr, listingId) {
 
     // var eachQuery = `INSERT into bookings (listingId, nights, month, checkIn, checkOut, guests, children, infants) VALUES (${listingId}, ${days}, '${startMonthSliced}', '${checkInDate}', '${checkOutDate}', ${guests}, 0, 0 ); \n `;
 
-    var eachQuery = `${listingId}, ${days}, '${startMonthSliced}', '${checkInDate}', '${checkOutDate}', ${guests}, 0, 0\n`;
+    var eachQuery = `${id}, ${listingId}, ${days}, '${startMonthSliced}', '${checkInDate}', '${checkOutDate}', ${guests}, 0, 0\n`;
 
     mysqlQueriesForEachListingItem += eachQuery;
+    id++;
   }
 //console.log('acum', acum)
   return mysqlQueriesForEachListingItem;
@@ -131,46 +132,60 @@ var toFillBookingsTable = function (arr, listingId) {
     bookingTableData += setUpSixBookingsPerListing(arr, listingId);
     listingId++;
   }
-  //console.log('bookingTableData', bookingTableData)
+  // console.log('bookingTableData', bookingTableData)
 
 
 
 };
 
 //console.log('listingTableData', listingTableData)
-var schema = `
-DROP DATABASE IF EXISTS reservation_service;
+// var schema = `
+// DROP DATABASE IF EXISTS reservation_service;
 
-CREATE DATABASE reservation_service;
+// CREATE DATABASE reservation_service;
 
-USE reservation_service;
+// USE reservation_service;
 
-CREATE TABLE listingItems (
-  id int NOT NULL AUTO_INCREMENT,
-  listingId int NOT NULL,
-  pricePerNight DECIMAL(5, 2) NOT NULL,
-  weekend boolean NOT NULL default 0,
-  weekendPrice DECIMAL(3, 2) NOT NULL,
-  maxGuests int NOT NULL,
-  tax DECIMAL(3, 2) NOT NULL,
-  PRIMARY KEY(id)
+// CREATE TABLE listingItems (
+//   id int NOT NULL AUTO_INCREMENT,
+//   listingId int NOT NULL,
+//   pricePerNight DECIMAL(5, 2) NOT NULL,
+//   weekend boolean NOT NULL default 0,
+//   weekendPrice DECIMAL(3, 2) NOT NULL,
+//   maxGuests int NOT NULL,
+//   tax DECIMAL(3, 2) NOT NULL,
+//   PRIMARY KEY(id)
 
-);
+// );
 
-CREATE TABLE bookings (
-  id int NOT NULL AUTO_INCREMENT,
-  listingId int,
-  nights int,
-  month VARCHAR(4),
-  checkIn VARCHAR(10),
-  checkOut VARCHAR(10),
-  guests int,
-  children int default 0,
-  infants int default 0,
-  PRIMARY KEY(id)
-);
+// CREATE TABLE bookings (
+//   id int NOT NULL AUTO_INCREMENT,
+//   listingId int,
+//   nights int,
+//   month VARCHAR(4),
+//   checkIn VARCHAR(10),
+//   checkOut VARCHAR(10),
+//   guests int,
+//   children int default 0,
+//   infants int default 0,
+//   PRIMARY KEY(id)
+// );
 
-`
+// LOAD DATA LOCAL INFILE '/Users/jasonjacob/Desktop/seniorProjects/sdc/jason-sdc-service/database/listingInfoCSV'
+// INTO TABLE listingItems
+// FIELDS TERMINATED BY ','
+// ENCLOSED BY '"'
+// LINES TERMINATED BY '\n'
+// IGNORE 1 ROWS;
+
+// LOAD DATA LOCAL INFILE '/Users/jasonjacob/Desktop/seniorProjects/sdc/jason-sdc-service/database/bookingsInfoCSV'
+// INTO TABLE bookings
+// FIELDS TERMINATED BY ','
+// ENCLOSED BY '"'
+// LINES TERMINATED BY '\n'
+// IGNORE 1 ROWS;
+
+// `
 // var writeSchema = function (callback) {
 //   fs.writeFile ('../schema.sql', schema, function (err, results) {
 //     if (err) {
@@ -180,11 +195,11 @@ CREATE TABLE bookings (
 //     };
 //   });
 // };
-// write Schema into Schema.sql file
+//write Schema into Schema.sql file
 // writeSchema();
 
-// let myWriteStream = fs.createWriteStream('./listingInfoCSV');
-let bookingsStream = fs.createWriteStream('./bookingsInfoCSV');
+// let myWriteStream = fs.createWriteStream('./database/listingInfoCSV');
+let bookingsStream = fs.createWriteStream('./database/bookingsInfoCSV');
 
 // let writeListingInfoCSV = () => {
 //   for (let i = 0; i < 1000; i++) {
