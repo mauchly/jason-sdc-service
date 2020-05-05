@@ -1,121 +1,22 @@
 var faker = require ('faker');
 var fs = require('fs');
-
+// const EventEmitter = require('events');
+// const emitter = new EventEmitter()
+// emitter.setMaxListeners(100);
 
 var price = faker.commerce.price(100,180.00,2)
 console.log('price', price)
 
 
 
-var listingTableData = ``;
-var bookingTableData = ``;
+var listingTableData = `listingId, pricePerNight, weekend, weekendPrice, maxGuests, tax\n`;
+var bookingTableData = `listingId, nights, month, checkIn, checkOut, guests, children, infants\n`;
 var arrOfCalendarDays = [];
-var numOfListings = 10;
-var listingNames = [
-  'Super_Cute_Retro_Airstream',
-  'Redundant_Driver_Strategic_house',
-  'Multibyte_Program_Opensource_house',
-  'Neural_Transmitter_Magnetic_house',
-  'Haptic_Bandwidth_Leadingedge_house',
-  'Primary_Harddrive_Killer_house',
-  'Solidstate_Harddrive_Crossplatform_house',
-  'Optical_Bandwidth_Robust_house',
-  'Solidstate_Interface_Crossmedia_house',
-  'Bluetooth_Port_Opensource_house',
-  'Neural_Program_Bricksandclicks_house',
-  'Online_Matrix_Usercentric_house',
-  'Virtual_Transmitter_Interactive_house',
-  'Virtual_System_Cuttingedge_house',
-  'Bluetooth_Application_Robust_house',
-  'Primary_Harddrive_B2C_house',
-  'Haptic_Port_Transparent_house',
-  'Haptic_Bus_Sexy_house',
-  'Auxiliary_Feed_Cuttingedge_house',
-  'Optical_Firewall_Clicksandmortar_house',
-  'Auxiliary_Feed_Impactful_house',
-  'Neural_Circuit_Outofthebox_house',
-  'Bluetooth_Port_Compelling_house',
-  'Bluetooth_Transmitter_Granular_house',
-  'Optical_Bandwidth_Efficient_house',
-  'Haptic_Port_Onetoone_house',
-  'Online_Program_Intuitive_house',
-  'Haptic_Protocol_Frontend_house',
-  'Solidstate_Port_Valueadded_house',
-  'Multibyte_Bandwidth_Proactive_house',
-  'Opensource_Driver_Granular_house',
-  'Wireless_Panel_Realtime_house',
-  'Mobile_Port_Innovative_house',
-  'Neural_Alarm_Bricksandclicks_house',
-  'Digital_Feed_Revolutionary_house',
-  'Auxiliary_System_Innovative_house',
-  '1080p_Circuit_Scalable_house',
-  'Auxiliary_Alarm_Onetoone_house',
-  'Haptic_System_Worldclass_house',
-  '1080p_Microchip_Ubiquitous_house',
-  'Multibyte_System_Interactive_house',
-  'Haptic_Firewall_Ebusiness_house',
-  'Virtual_Feed_Proactive_house',
-  '1080p_Bus_Viral_house',
-  'Wireless_Matrix_Frictionless_house',
-  'Bluetooth_Application_Revolutionary_house',
-  '1080p_Application_Bricksandclicks_house',
-  'Backend_Bus_24/365_house',
-  'Mobile_Alarm_Granular_house',
-  'Backend_Alarm_Bestofbreed_house',
-  'Wireless_Panel_Clicksandmortar_house',
-  'Crossplatform_Harddrive_Wireless_house',
-  'Solidstate_Alarm_Robust_house',
-  'Neural_Application_Intuitive_house',
-  'Multibyte_Interface_Interactive_house',
-  'Backend_System_Rich_house',
-  'Backend_Feed_Usercentric_house',
-  'Bluetooth_System_Realtime_house',
-  'Multibyte_Alarm_24/7_house',
-  'Mobile_Alarm_Dotcom_house',
-  'Multibyte_Sensor_Opensource_house',
-  'Auxiliary_Sensor_Endtoend_house',
-  'Solidstate_Card_Cuttingedge_house',
-  'Wireless_Interface_Interactive_house',
-  'Auxiliary_Panel_Vertical_house',
-  'Multibyte_Program_Wireless_house',
-  'Crossplatform_Microchip_Synergistic_house',
-  'Bluetooth_Matrix_Magnetic_house',
-  'Mobile_Sensor_Missioncritical_house',
-  'Virtual_Port_Bleedingedge_house',
-  'Auxiliary_Bus_Bestofbreed_house',
-  'Haptic_Alarm_B2B_house',
-  '1080p_Array_Plugandplay_house',
-  'Optical_Microchip_Revolutionary_house',
-  'Digital_Card_B2C_house',
-  'Bluetooth_Microchip_Webenabled_house',
-  '1080p_Matrix_Impactful_house',
-  'Neural_Feed_Enterprise_house',
-  'Crossplatform_Matrix_Visionary_house',
-  'Optical_Card_Proactive_house',
-  'Redundant_Alarm_Plugandplay_house',
-  'Redundant_Alarm_Seamless_house',
-  'Wireless_Application_Endtoend_house',
-  'Virtual_Panel_Scalable_house',
-  '1080p_System_Visionary_house',
-  'Solidstate_Bandwidth_Nextgeneration_house',
-  'Crossplatform_System_Endtoend_house',
-  'Wireless_Driver_Rich_house',
-  'Backend_Matrix_Robust_house',
-  'Opensource_Bandwidth_B2B_house',
-  'Mobile_Pixel_Proactive_house',
-  'Backend_Harddrive_Frictionless_house',
-  'Auxiliary_Array_Ubiquitous_house',
-  'Mobile_Pixel_Frictionless_house',
-  'Online_Transmitter_Dotcom_house',
-  'Bluetooth_Sensor_Revolutionary_house',
-  'Crossplatform_Protocol_Granular_house',
-  'Primary_Matrix_Realtime_house',
-  'Crossplatform_Port_Wireless_house',
-  'Online_Bus_Integrated_house'
-];
+var numOfListings = 10000;
+var currentListingId = 1;
 
-var toFillListingItemsTable = function () {
-  var listingId = 1;
+var toFillListingItemsTable = function (currentListingId) {
+  var listingId = currentListingId;
   var weekend;
  //set random number to set max num of Guests
   for (var i = 0; i < numOfListings; i++) {
@@ -132,18 +33,18 @@ var toFillListingItemsTable = function () {
     }
 
 
-    //add randowm value to set weekend as true or false
-    listingTableData += `INSERT into listingItems (listingId, listingName, pricePerNight, weekend, weekendPrice, maxGuests, tax) VALUES (${listingId}, '${listingNames[i]}', ${pricePerNight}, ${weekend}, 1.1, ${maxGuests}, 1.12);\n `
+    //add random value to set weekend as true or false
+    // listingTableData += `INSERT into listingItems (listingId, pricePerNight, weekend, weekendPrice, maxGuests, tax) VALUES (${listingId}, ${pricePerNight}, ${weekend}, 1.1, ${maxGuests}, 1.12);\n `;
+
+    listingTableData += `${listingId}, ${pricePerNight}, ${weekend}, 1.1, ${maxGuests}, 1.12\n`;
+
     listingId++;
   }
   //return listingTableData;
 
 }
 //invoke function to populate Listing table data
-toFillListingItemsTable();
-
-
-
+// toFillListingItemsTable();
 
 //to fill the arr with days of 4 months starting April - July //April [30 days], May[31 days], etc
 var makeCalendarDays = function() {
@@ -185,7 +86,7 @@ var checkWhichMonth = function (acum) {
 }
 
 var setUpSixBookingsPerListing = function (arr, listingId) {
-  var mysqlQueriesForEachListingItem =''
+  var mysqlQueriesForEachListingItem = '';
   var acum = 0;
   //adding 6 bookings per item
   for (i = 0; i < 6; i++) {
@@ -210,7 +111,11 @@ var setUpSixBookingsPerListing = function (arr, listingId) {
     var checkOutDate =  `${endMonth}-${end}`;
     acum += days + rangeInBetween;
     var startMonthSliced = startMonth.slice(0, 2);
-    var eachQuery = `INSERT into bookings (listingId, nights, month, checkIn, checkOut, guests, children, infants) VALUES (${listingId}, ${days}, '${startMonthSliced}', '${checkInDate}', '${checkOutDate}', ${guests}, 0, 0 ); \n `;
+
+    // var eachQuery = `INSERT into bookings (listingId, nights, month, checkIn, checkOut, guests, children, infants) VALUES (${listingId}, ${days}, '${startMonthSliced}', '${checkInDate}', '${checkOutDate}', ${guests}, 0, 0 ); \n `;
+
+    var eachQuery = `${listingId}, ${days}, '${startMonthSliced}', '${checkInDate}', '${checkOutDate}', ${guests}, 0, 0\n`;
+
     mysqlQueriesForEachListingItem += eachQuery;
   }
 //console.log('acum', acum)
@@ -232,8 +137,6 @@ var toFillBookingsTable = function (arr, listingId) {
 
 };
 
-toFillBookingsTable(arrOfCalendarDays, 1);
-
 //console.log('listingTableData', listingTableData)
 var schema = `
 DROP DATABASE IF EXISTS reservation_service;
@@ -245,7 +148,6 @@ USE reservation_service;
 CREATE TABLE listingItems (
   id int NOT NULL AUTO_INCREMENT,
   listingId int NOT NULL,
-  listingName VARCHAR(100),
   pricePerNight DECIMAL(5, 2) NOT NULL,
   weekend boolean NOT NULL default 0,
   weekendPrice DECIMAL(3, 2) NOT NULL,
@@ -268,18 +170,72 @@ CREATE TABLE bookings (
   PRIMARY KEY(id)
 );
 
-${listingTableData}
-${bookingTableData}
-
 `
-var writeSchema = function (callback) {
-  fs.writeFile ('schema.sql', schema, function (err, results) {
-    if (err) {
-      console.log('err', err);
+// var writeSchema = function (callback) {
+//   fs.writeFile ('../schema.sql', schema, function (err, results) {
+//     if (err) {
+//       console.log('err', err);
+//     } else {
+//       console.log('success');
+//     };
+//   });
+// };
+// write Schema into Schema.sql file
+// writeSchema();
+
+// let myWriteStream = fs.createWriteStream('./listingInfoCSV');
+let bookingsStream = fs.createWriteStream('./bookingsInfoCSV');
+
+// let writeListingInfoCSV = () => {
+//   for (let i = 0; i < 1000; i++) {
+//     if (i === 0) {
+//       toFillListingItemsTable(currentListingId);
+//       let write = myWriteStream.write(listingTableData);
+//       if (!write) {
+//         myWriteStream.once('drain', writeListingInfoCSV);
+//       } else {
+//         writeListingInfoCSV();
+//       }
+//     } else {
+//       currentListingId+= 10000;
+//       listingTableData = '';
+//       toFillListingItemsTable(currentListingId)
+//       let write = myWriteStream.write(listingTableData);
+//       if (!write) {
+//         myWriteStream.once('drain', writeListingInfoCSV);
+//       } else {
+//         writeListingInfoCSV();
+//       }
+//     }
+//   }
+//     myWriteStream.end();
+// };
+
+let writeBookingInfoCSV = function(cb) {
+  for (let i = 0; i < 1000; i++) {
+    if (i === 0) {
+      currentListingId = 1;
+      toFillBookingsTable(arrOfCalendarDays, currentListingId);
+      let write = bookingsStream.write(bookingTableData);
+      if (!write) {
+        bookingsStream.once('drain', writeBookingInfoCSV);
+      } else {
+        writeBookingInfoCSV();
+      }
     } else {
-      console.log('success');
+      currentListingId+= 10000;
+      bookingTableData = '';
+      toFillBookingsTable(arrOfCalendarDays, currentListingId);
+      let write = bookingsStream.write(bookingTableData);
+      if (!write) {
+        bookingsStream.once('drain', writeBookingInfoCSV);
+      } else {
+        writeBookingInfoCSV();
+      }
     }
-  })
-}
-//write Schema into Schema.sql file
-writeSchema();
+  }
+  bookingsStream.end();
+};
+
+// writeListingInfoCSV();
+writeBookingInfoCSV();
