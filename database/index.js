@@ -28,6 +28,20 @@ const getBookedDates = (listingId, callback) => {
   })
 }
 
+const createListingInfo = (listingInfo) => {
+  return new Promise((resolve, reject) => {
+    let insertQuery = `INSERT INTO listingItems ('listingId', 'pricePerNight', 'weekend', 'weekendPrice', 'maxGuests', 'tax') VALUES ('${listingInfo[listingId]}', '${listingInfo[pricePerNight]}', '${listingInfo[weekend]}', '${listingInfo[weekendPrice]}', '${listingInfo[maxGuests]}', '${listingInfo[tax]}')`;
+    connection.query(insertQuery, (err, results) => {
+      if (err) {
+        reject(err);
+      } else {
+        console.log('INSERT SUCCESSFUL');
+        resolve(results);
+      }
+    });
+  });
+};
+
 const updateListingInfo = (update) => {
   let keys = Object.keys(update);
   let updateQuery = '';
@@ -53,7 +67,6 @@ const updateListingInfo = (update) => {
 };
 
 const deleteListing = (listingId) => {
-
   return new Promise((resolve, reject) => {
     let deleteQuery = `DELETE FROM listingItems WHERE listingId = ${listingId}`;
     connection.query(deleteQuery, (err, results) => {
@@ -68,5 +81,5 @@ const deleteListing = (listingId) => {
 
 
 module.exports = {
-  connection, getListingInfo, getBookedDates, updateListingInfo, deleteListing
+  connection, getListingInfo, getBookedDates, createListingInfo, updateListingInfo, deleteListing
 }

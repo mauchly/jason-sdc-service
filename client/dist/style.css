@@ -97,7 +97,8 @@ input, select {
   margin: 10px;
   border-color: #e7e5e5 !important;
   padding: 10px;
-  padding-right: 2%;
+  padding-right: 1.25%;
+  padding-left: 1.1%;
   text-align: left;
   font-family: Circular;
   border-radius: 1px;
@@ -259,6 +260,7 @@ float: right;
   }
   .perNight{
     font-size: 10px;
+    font-weight: bold;
   }
   .text {
     font: Circular;
@@ -321,18 +323,14 @@ float: right;
     font-family: ariel,sans-serif;
   }
 
-  .datesStr {
+  .dateAndGuestStr {
+    margin: 10px 0 5px 0;
     font-family: sans-serif;
-    font-size: 10px;
-    padding-left: 3px;
+    font-weight: bold;
+    font-size: 13px;
+    padding-left: 1px;
   }
 
-  #guestsStr {
-    margin-top:4px;
-    font-family: sans-serif;
-    font-size: 10px;
-    padding-left: 3px;
-  }
   .symbolsButton {
     border-radius: 50%;
     border-color:rgb(61, 176, 180);
@@ -367,7 +365,7 @@ float: right;
   }
 
   .guestsDiv {
-    padding-left: 10px;
+    padding: 5px 0 0 10px;
     font-family: ariel,sans-serif;
     font-size: 13px;
   }
