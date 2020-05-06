@@ -15,7 +15,7 @@ var total = Number(subTotal) + Number(serviceSubtotal) + Number(taxAndFeesSubtot
       <table>
         <tbody>
      <tr className="priceTable">
-       <td className="priceData">${price}x{numOfNights} nights <img className="circle" src="https://rptfecservice.s3-sa-east-1.amazonaws.com/circleTwo.png"/></td>
+       <td className="priceData">${price} x {numOfNights} nights <img className="circle" src="https://rptfecservice.s3-sa-east-1.amazonaws.com/circleTwo.png"/></td>
        <td className="priceData">${subTotal}</td>
        </tr>
        <tr className="priceTable">

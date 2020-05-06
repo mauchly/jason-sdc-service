@@ -37,10 +37,9 @@ class Reservation extends React.Component {
       numOfInfants:0,
       reviews: '',
       msgUnderReserveButton: 'You won\'t be charged yet.',
-      newBookedDateRange: []
-
-
-    }
+      newBookedDateRange: [],
+      guestsWord: 'Guest'
+    };
     //bookedDates inside state are manually entered mock data for testing
     this.goToNextMonth = this.goToNextMonth.bind(this);
     this.goToPreviousMonth = this.goToPreviousMonth.bind(this);
@@ -55,11 +54,9 @@ class Reservation extends React.Component {
     this.onDecreaseOfAdults = this.onDecreaseOfAdults.bind(this);
     this.onHandleCloseGuestsDisplay = this.onHandleCloseGuestsDisplay.bind(this);
     this.getReviews = this.getReviews.bind(this);
+  };
 
-
-  }
   componentDidMount() {
-    console.log('window', window.location.href)
     var currentYear = +(new Date().getFullYear());
     var currentMonth = +(new Date().getMonth()) + 1;
     var monthFirstDay = getMonthFirstDay(currentMonth, currentYear)
@@ -73,34 +70,28 @@ class Reservation extends React.Component {
       monthName: monthName,
       grid: grid,
       monthNumber: currentMonth
-    })
+    });
     var listingId = 1;
     var urlOne = 'http://localhost:3001/listingInfo';
     var windowUrlString = window.location.href;
-    console.log('windowsUrl', windowUrlString)
-    if (windowUrlString[windowUrlString.length - 1] === '/') {
+    let searchedId = windowUrlString.split('/').pop();
+    if (searchedId < 1 || searchedId > 10000000) {
       listingId = 1
     } else {
-      listingId = Number(windowUrlString.slice(-5));
-      console.log('OtherlistingId', listingId)
+      listingId = Number(searchedId);
     }
     var reviewUrl = 'http://localhost:3004/averageScore' + listingId;
-    console.log('reviewUrl', reviewUrl)
+    console.log('reviewUrl', reviewUrl);
     this.getListingInfoFromServer(urlOne, listingId);
     this.getBookedDates('http://localhost:3001/getBookedDates', listingId);
     this.getReviews(reviewUrl);
+  };
 
-
-  }
   onClickCheckinButton () {
-
      this.setState({
        toggleCheckinToDisplayCalendar: !this.state.toggleCheckinToDisplayCalendar,
-
-     })
-
-  }
-
+     });
+  };
 
   //Calendar Component methods
    goToNextMonth () {
@@ -121,85 +112,76 @@ class Reservation extends React.Component {
       monthName: monthName,
       monthNumber: newMonth
     })
-  }
+  };
+
   goToPreviousMonth () {
     console.log('Previous')
    var currentYear = this.state.currentYear;
    var currentMonth = this.state.monthNumber;
    var newMonth = currentMonth -1;
-   console.log('newMonth', newMonth)
-   var monthFirstDay = getMonthFirstDay(newMonth, currentYear)
-   var days = getMonthDays(newMonth)
-   console.log('daysOfNext', days)
-   console.log('monthFirstDay', monthFirstDay)
-   var monthName = getMonth(newMonth)
-   var grid = createMonth(days, monthFirstDay)
+  //  console.log('newMonth', newMonth);
+   var monthFirstDay = getMonthFirstDay(newMonth, currentYear);
+   var days = getMonthDays(newMonth);
+  //  console.log('daysOfNext', days);
+  //  console.log('monthFirstDay', monthFirstDay);
+   var monthName = getMonth(newMonth);
+   var grid = createMonth(days, monthFirstDay);
    this.setState({
      grid: grid,
      currentYear: currentYear,
      monthName: monthName,
      monthNumber: newMonth
-   })
- }
+   });
+ };
+
  onDayClick(e) {
-   console.log('onDayClick', e.target.id)
   var checkInDate = e.target.id;
   var clickedTimes = this.state.timesToggledonCheckinAndCheckOut;
   var bookedDates = this.state.bookedDates;
   if (!bookedDates.includes(checkInDate) && checkInDate !== 'empty') {
-  this.setState({
-    timesToggledonCheckinAndCheckOut: clickedTimes+1
-  })
-  if (this.state.timesToggledonCheckinAndCheckOut < 1) {
-
-   var newStr = checkInDate.replace('-', '/')
-   console.log('newStr', newStr)
-   newStr = '2020/' + newStr;
     this.setState({
-      checkin: newStr,
-      displayCheckOut: !this.state.displayCheckOut
-    })
-  }
+      timesToggledonCheckinAndCheckOut: clickedTimes+1
+    });
+    if (this.state.timesToggledonCheckinAndCheckOut < 1) {
+    var newStr = checkInDate.replace('-', '/');
+    //  console.log('newStr', newStr);
+    newStr = '2020/' + newStr;
+      this.setState({
+        checkin: newStr,
+        displayCheckOut: !this.state.displayCheckOut
+      });
+    }
   }
   if (this.state.checkin) {
     this.displayCheckOutDate(e);
   }
-
- }
+ };
 
  displayCheckOutDate (e) {
- console.log('went in displayCheckOutDate')
   var checkOutDate = e.target.id;
-  console.log('checkOutDate', checkOutDate)
+  // console.log('checkOutDate', checkOutDate);
   if (this.state.checkin) {
-  var checkInDate = this.state.checkin;
-  console.log('checkInDate', checkInDate)
-  var checkIn = checkInDate.slice(5)
-  var checkInFormatted = checkIn.replace('/', '-');
-  var numOfNights = calculateNumOfNights(checkInFormatted, checkOutDate);
-
-  var newBookedRangeOfDates = getDatesRange(checkInFormatted, checkOutDate);
-
-  this.setState({
-    numOfNights: numOfNights,
-    newBookedDateRange: newBookedRangeOfDates
-  })
+    var checkInDate = this.state.checkin;
+    // console.log('checkInDate', checkInDate);
+    var checkIn = checkInDate.slice(5);
+    var checkInFormatted = checkIn.replace('/', '-');
+    var numOfNights = calculateNumOfNights(checkInFormatted, checkOutDate);
+    var newBookedRangeOfDates = getDatesRange(checkInFormatted, checkOutDate);
+    this.setState({
+      numOfNights: numOfNights,
+      newBookedDateRange: newBookedRangeOfDates
+    });
   }
   var newStr = checkOutDate.replace('-', '/');
   newStr = '2020/' + newStr;
+  this.setState({
+    checkout: newStr,
+    toggleCheckinToDisplayCalendar: !this.state.toggleCheckinToDisplayCalendar,
+    displayPriceBreakup: true
+  });
+ };
 
-
-    this.setState({
-      checkout: newStr,
-      toggleCheckinToDisplayCalendar: !this.state.toggleCheckinToDisplayCalendar,
-      displayPriceBreakup: true
-    })
-
-
- }
  clearDatesButton () {
-   console.log('clear Dates')
-
    this.setState({
      checkin: null,
      checkout: null,
@@ -207,10 +189,10 @@ class Reservation extends React.Component {
      numOfNights: null,
      displayCheckOut: true,
      displayPriceBreakup: false
-   })
- }
- getReviews(endPoint) {
+   });
+ };
 
+ getReviews(endPoint) {
    $.ajax({
      method: 'GET',
      url: endPoint,
@@ -225,7 +207,8 @@ class Reservation extends React.Component {
        console.log('error', err);
      }
    })
- }
+ };
+
  getListingInfoFromServer (url, id) {
   var bodyObj = {
     listingId: id
@@ -255,8 +238,7 @@ class Reservation extends React.Component {
       console.log('error', err);
     }
   })
-
- }
+ };
 
  getBookedDates (url, id) {
   var bodyObj = {
@@ -281,43 +263,62 @@ class Reservation extends React.Component {
       console.log('error', err);
     }
   })
-
  }
- onHandleGuestsClick () {
 
+ onHandleGuestsClick () {
    if (this.state.toggleGuestsMenuCount === 0) {
    this.setState({
      displayGuestsMenu: true,
      toggleGuestsMenuCount: this.state.toggleGuestsMenuCount+1
-   })
+   });
   } else {
     this.setState({
       displayGuestsMenu: false,
       toggleGuestsMenuCount: this.state.toggleGuestsMenuCount-1
-    })
+    });
   }
- }
- onIncreaseOfAdults () {
-   console.log('clicked to increase')
-   this.setState({
-     guests: this.state.guests+1
-   })
- }
+ };
+
+ onIncreaseOfAdults (e) {
+   console.log('in onIncrease');
+   console.log('guests', this.state.guests);
+   if (this.state.guests === 0) {
+    this.setState({
+      guests: this.state.guests + 1,
+      guestsWord: 'Guest'
+    })
+   } else if (this.state.guests > 0) {
+    this.setState({
+      guests: this.state.guests + 1,
+      guestsWord: 'Guests'
+    })
+   }
+ };
 
  onDecreaseOfAdults () {
-  console.log('clicked to decrease')
-  this.setState({
-    guests: this.state.guests-1
-  })
- }
+  if (this.state.guests > 2) {
+    this.setState({
+      guests: this.state.guests - 1
+    });
+  } else if (this.state.guests === 2) {
+    this.setState({
+      guests: this.state.guests - 1,
+      guestsWord: 'Guest'
+    });
+  } else if (this.state.guests === 1) {
+    this.setState({
+      guests: this.state.guests - 1,
+      guestsWord: 'Guests'
+    });
+  }
+ };
+
  onHandleCloseGuestsDisplay () {
    this.setState({
      displayGuestsMenu: false,
      toggleGuestsMenuCount: 0
-   })
- }
-
-
+   });
+ };
 
   render () {
     var placeHolderOne;
@@ -344,7 +345,7 @@ class Reservation extends React.Component {
     return (
       <div className="mainFrame">
         <p>${this.state.price}
-          <span className="perNight">per night</span>
+          <span className="perNight"> per night</span>
         </p>
         <span>
           <img id="star" src="https://fec-photos.s3-us-west-1.amazonaws.com/otherPics/airbnb_star.png"/>{this.state.reviews[0]}<span className="numOfReview">{this.state.reviews[1]}</span>
@@ -352,7 +353,7 @@ class Reservation extends React.Component {
         <br></br>
         <div className="dateAndGuestStr">Dates</div>
         <div className="dateFrame">
-          <button className="checkInButton" onClick={this.onClickCheckinButton}>{placeHolderOne}</button><span>&rarr;</span>
+          <button className="checkInButton" onClick={this.onClickCheckinButton}>{placeHolderOne}</button><div id="arrow">&rarr;</div>
           <button className={checkOutNewClassName}>{placeHolderTwo}</button>
         </div>
           <div>{this.state.toggleCheckinToDisplayCalendar &&<CalendarBoard monthNum={this.state.monthNumber} month={this.state.monthName} year={this.state.currentYear}monthGrid={this.state.grid} onNext={this.goToNextMonth} onPrevious={this.goToPreviousMonth} onDayClick={this.onDayClick} onClear={this.clearDatesButton} booked={this.state.bookedDates} newBookedDateRange={this.state.newBookedDateRange}/>}
@@ -361,7 +362,7 @@ class Reservation extends React.Component {
           <span>Guests</span>
         </div>
         <div className="guestsFrame">
-          <div className="guestsDiv" onClick={this.onHandleGuestsClick}>  {this.state.guests} Guest</div>
+          <div className="guestsDiv" onClick={this.onHandleGuestsClick}>  {this.state.guests} {this.state.guestsWord}</div>
         </div>
         <div className="guestsMenu">
           {this.state.displayGuestsMenu && <GuestsDisplay guests={this.state.guests} numOfChildren={this.state.numOfChildren} numOfInfants={this.state.numOfInfants} onIncrease= {this.onIncreaseOfAdults} onDecrease= {this.onDecreaseOfAdults} onClose={this.onHandleCloseGuestsDisplay}/>} <br></br>
@@ -372,7 +373,7 @@ class Reservation extends React.Component {
         <div className="underReserve">{this.state.msgUnderReserveButton}</div>
       </div>
     )
-  }
+  };
 }
 
 //{this.state.displayGuestsMenu && <GuestsDisplay />}

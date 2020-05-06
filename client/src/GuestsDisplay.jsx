@@ -10,7 +10,7 @@ var GuestsDisplay = (props) => {
   <tr className="guestsRow">
     <td>Adults</td>
     <td className="guestButton" ><button onClick={props.onDecrease} className="symbolsButton">-</button></td>
-    <td>{props.guests}</td>
+    <td id="numOfGuests">{props.guests}</td>
     <td className="guestButton"><button className="symbolsButton" onClick={props.onIncrease}>+</button></td>
   </tr>
   <tr className="guestsRow">

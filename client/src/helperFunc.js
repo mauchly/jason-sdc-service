@@ -15,7 +15,6 @@ var padding = (n, weekArr) => {
 }
 
 export var createMonth = (monthDays, firstDayOfTheMonth) => {
-  console.log('went inside createMonth Func')
   var board = [];
   var week = [];
   var padNum = 7 - firstDayOfTheMonth;
