@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
-const { connection, getListingInfo, getBookedDates, updateListingInfo, deleteListing } = require ('../database');
+const { connection, getListingInfo, getBookedDates, createListingInfo, updateListingInfo, deleteListing } = require ('../database');
 const fs = require('fs');
 const fullPath = '/Users/jasonjacob/Desktop/seniorProjects/sdc/jason-sdc-service/client/dist/index.html';
 
@@ -35,6 +35,20 @@ app.get('/listingInfo', (req, res) => {
       var stringifyResults = JSON.stringify(results);
       res.status(200).end(stringifyResults);
     }
+  });
+})
+
+app.post('/listingInfo', (req, res) => {
+  //should give listingId 10001 back to the client when page first renders
+  var listingInfo = req.query.listingInfo;
+  createListingInfo(listingInfo)
+  .then((results) => {
+    let stringifiedResults = JSON.stringify(results);
+    res.status(200).end(stringifiedResults);
+  })
+  .catch((err) => {
+    console.log('error', err);
+    res.status(404).end('COULD NOT CREATE LISTING');
   });
 })
 

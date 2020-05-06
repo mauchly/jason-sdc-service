@@ -74,12 +74,12 @@ class Reservation extends React.Component {
       grid: grid,
       monthNumber: currentMonth
     })
-    var listingId = 10001;
+    var listingId = 1;
     var urlOne = 'http://localhost:3001/listingInfo';
     var windowUrlString = window.location.href;
     console.log('windowsUrl', windowUrlString)
     if (windowUrlString[windowUrlString.length - 1] === '/') {
-      listingId = 10001
+      listingId = 1
     } else {
       listingId = Number(windowUrlString.slice(-5));
       console.log('OtherlistingId', listingId)
@@ -343,27 +343,33 @@ class Reservation extends React.Component {
 
     return (
       <div className="mainFrame">
-      <p>${this.state.price} <span className="perNight">per night</span></p>
-      <span><img id="star" src="https://fec-photos.s3-us-west-1.amazonaws.com/otherPics/airbnb_star.png"/>{this.state.reviews[0]}<span className="numOfReview">{this.state.reviews[1]}</span></span>
-      <br></br>
-      <span className="datesStr">Dates</span>
-      <div className="dateFrame">
-     <button className="checkInButton" onClick={this.onClickCheckinButton}>{placeHolderOne}</button><span>&rarr;</span>
-     <button className={checkOutNewClassName}>{placeHolderTwo}</button>
-     </div>
-    <div>{this.state.toggleCheckinToDisplayCalendar &&<CalendarBoard monthNum={this.state.monthNumber} month={this.state.monthName} year={this.state.currentYear}monthGrid={this.state.grid} onNext={this.goToNextMonth} onPrevious={this.goToPreviousMonth} onDayClick={this.onDayClick} onClear={this.clearDatesButton} booked={this.state.bookedDates} newBookedDateRange={this.state.newBookedDateRange}/>}</div>
-    <div id="guestsStr"><span>Guests</span></div>
-    <div className="guestsFrame">
-      <span className="guestsDiv" onClick={this.onHandleGuestsClick}>  {this.state.guests} Guest</span>
-      </div>
-      <div className="guestsMenu">
-    {this.state.displayGuestsMenu && <GuestsDisplay guests={this.state.guests} numOfChildren={this.state.numOfChildren} numOfInfants={this.state.numOfInfants} onIncrease= {this.onIncreaseOfAdults} onDecrease= {this.onDecreaseOfAdults} onClose={this.onHandleCloseGuestsDisplay}/>} <br></br></div>
-
-
-    <div className="priceBreakup">{this.state.displayPriceBreakup && <PriceBreakup numOfNights={this.state.numOfNights} serviceFee={this.state.serviceFee} price={this.state.price} tax={this.state.tax}/>}</div>
-    <br></br>
-    <button className="reserveButton">Reserve</button>
-    <div className="underReserve">{this.state. displayPriceBreakup && this.state.msgUnderReserveButton}</div>
+        <p>${this.state.price}
+          <span className="perNight">per night</span>
+        </p>
+        <span>
+          <img id="star" src="https://fec-photos.s3-us-west-1.amazonaws.com/otherPics/airbnb_star.png"/>{this.state.reviews[0]}<span className="numOfReview">{this.state.reviews[1]}</span>
+        </span>
+        <br></br>
+        <div className="dateAndGuestStr">Dates</div>
+        <div className="dateFrame">
+          <button className="checkInButton" onClick={this.onClickCheckinButton}>{placeHolderOne}</button><span>&rarr;</span>
+          <button className={checkOutNewClassName}>{placeHolderTwo}</button>
+        </div>
+          <div>{this.state.toggleCheckinToDisplayCalendar &&<CalendarBoard monthNum={this.state.monthNumber} month={this.state.monthName} year={this.state.currentYear}monthGrid={this.state.grid} onNext={this.goToNextMonth} onPrevious={this.goToPreviousMonth} onDayClick={this.onDayClick} onClear={this.clearDatesButton} booked={this.state.bookedDates} newBookedDateRange={this.state.newBookedDateRange}/>}
+        </div>
+        <div className="dateAndGuestStr">
+          <span>Guests</span>
+        </div>
+        <div className="guestsFrame">
+          <div className="guestsDiv" onClick={this.onHandleGuestsClick}>  {this.state.guests} Guest</div>
+        </div>
+        <div className="guestsMenu">
+          {this.state.displayGuestsMenu && <GuestsDisplay guests={this.state.guests} numOfChildren={this.state.numOfChildren} numOfInfants={this.state.numOfInfants} onIncrease= {this.onIncreaseOfAdults} onDecrease= {this.onDecreaseOfAdults} onClose={this.onHandleCloseGuestsDisplay}/>} <br></br>
+        </div>
+        <div className="priceBreakup">{this.state.displayPriceBreakup && <PriceBreakup numOfNights={this.state.numOfNights} serviceFee={this.state.serviceFee} price={this.state.price} tax={this.state.tax}/>}</div>
+        <br></br>
+        <button className="reserveButton">Reserve</button>
+        <div className="underReserve">{this.state.msgUnderReserveButton}</div>
       </div>
     )
   }
