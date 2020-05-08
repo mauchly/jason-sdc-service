@@ -234,7 +234,7 @@ var writeSchema = function (callback) {
 };
 
 // write Schema into Schema.sql file
-// writeSchema();
+writeSchema();
 
 let myWriteStream = fs.createWriteStream('./database/listingInfoCSV');
 let bookingsStream = fs.createWriteStream('./database/bookingsInfoCSV');
@@ -291,4 +291,4 @@ let writeBookingInfoCSV = function(cb) {
 };
 
 writeListingInfoCSV();
-// writeBookingInfoCSV();
+writeBookingInfoCSV();
