@@ -280,7 +280,6 @@ class Reservation extends React.Component {
  };
 
  onIncreaseOfAdults (e) {
-   console.log('in onIncrease');
    console.log('guests', this.state.guests);
    if (this.state.guests === 0) {
     this.setState({
@@ -304,11 +303,6 @@ class Reservation extends React.Component {
     this.setState({
       guests: this.state.guests - 1,
       guestsWord: 'Guest'
-    });
-  } else if (this.state.guests === 1) {
-    this.setState({
-      guests: this.state.guests - 1,
-      guestsWord: 'Guests'
     });
   }
  };
