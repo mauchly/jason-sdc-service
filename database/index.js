@@ -1,7 +1,22 @@
-const mysql = require('mysql');
-const mysqlConfig = require('./config.js');
+// const mysql = require('mysql');
+// const mysqlConfig = require('./config.js');
+const { Client } = require('pg');
+const client = new Client({
+  user: 'jasonjacob',
+  host: 'localhost',
+  database: 'reservation_service',
+  password: ''
+});
 
-const connection = mysql.createConnection(mysqlConfig);
+client.connect();
+
+
+client.query('SELECT $1::text as message', ['Hello world!'], (err, res) => {
+  console.log(err ? err.stack : res.rows[0].message);
+  client.end();
+});
+
+// const connection = mysql.createConnection(mysqlConfig);
 
 const getListingInfo = (listingId, callback) => {
   var queryStr = `Select * from listingItems Where listingId=${listingId};`
@@ -81,5 +96,5 @@ const deleteListing = (listingId) => {
 
 
 module.exports = {
-  connection, getListingInfo, getBookedDates, createListingInfo, updateListingInfo, deleteListing
+  getListingInfo, getBookedDates, createListingInfo, updateListingInfo, deleteListing
 }

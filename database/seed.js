@@ -1,6 +1,6 @@
 var faker = require ('faker');
 var fs = require('fs');
-const EventEmitter = require('events').EventEmitter.defaultMaxListeners = 100;
+const EventEmitter = require('events').EventEmitter.defaultMaxListeners = 1000;
 // const emitter = new EventEmitter();
 
 var price = faker.commerce.price(100,180.00,2)
@@ -25,9 +25,9 @@ var toFillListingItemsTable = function (currentListingId) {
     var maxGuests = Math.floor(Math.random() * 3 + 2);
     //setup boolean for if weekend price is applicable
     if (random % 2 === 0) {
-      weekend = 0;
+      weekend = 'false';
     } else {
-      weekend = 1;
+      weekend = 'true';
     }
 
 
@@ -39,14 +39,13 @@ var toFillListingItemsTable = function (currentListingId) {
     listingId++;
   }
   //return listingTableData;
+};
 
-}
 //invoke function to populate Listing table data
 // toFillListingItemsTable();
 
 //to fill the arr with days of 4 months starting April - July //April [30 days], May[31 days], etc
 var makeCalendarDays = function() {
-
   var num;
   var isTrue = true;
 
@@ -63,8 +62,8 @@ var makeCalendarDays = function() {
     isTrue = !isTrue;
 
   }
+};
 
-}
 //invoke makeCalendarDays to fill the arrOfCalendarDays variable
 makeCalendarDays();
 
@@ -119,7 +118,7 @@ var setUpSixBookingsPerListing = function (arr, listingId) {
   }
 //console.log('acum', acum)
   return mysqlQueriesForEachListingItem;
-}
+};
 
 //console.log('setUpRanges', setUpSixBookingsPerListing(arrOfCalendarDays, 10000))
 
@@ -136,26 +135,25 @@ var toFillBookingsTable = function (arr, listingId) {
 // console.log('listingTableData', listingTableData)
 
 var schema = `
-DROP DATABASE IF EXISTS reservation_service;
+// Postgres schema
 
-CREATE DATABASE reservation_service;
-
-USE reservation_service;
+/*  Execute this file for Postgres from the command line by typing:
+ *    psql -f schema.sql -U jasonjacob reservation_service
+ *  with the database already created to generate the tables. */
 
 CREATE TABLE listingItems (
-  id int NOT NULL AUTO_INCREMENT,
+  id int NOT NULL,
   listingId int NOT NULL,
   pricePerNight DECIMAL(5, 2) NOT NULL,
-  weekend boolean NOT NULL default 0,
+  weekend boolean NOT NULL default '0',
   weekendPrice DECIMAL(3, 2) NOT NULL,
   maxGuests int NOT NULL,
   tax DECIMAL(3, 2) NOT NULL,
   PRIMARY KEY(id)
-
 );
 
 CREATE TABLE bookings (
-  id int NOT NULL AUTO_INCREMENT,
+  id int NOT NULL,
   listingId int,
   nights int,
   month VARCHAR(4),
@@ -167,21 +165,64 @@ CREATE TABLE bookings (
   PRIMARY KEY(id)
 );
 
-LOAD DATA LOCAL INFILE '/Users/jasonjacob/Desktop/seniorProjects/sdc/jason-sdc-service/database/listingInfoCSV'
-INTO TABLE listingItems
-FIELDS TERMINATED BY ','
-ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 ROWS;
+COPY listingItems
+FROM '/Users/jasonjacob/Desktop/seniorProjects/sdc/jason-sdc-service/database/listingInfoCSV' DELIMITER ',' CSV HEADER;
 
-LOAD DATA LOCAL INFILE '/Users/jasonjacob/Desktop/seniorProjects/sdc/jason-sdc-service/database/bookingsInfoCSV'
-INTO TABLE bookings
-FIELDS TERMINATED BY ','
-ENCLOSED BY '"'
-LINES TERMINATED BY '\n'
-IGNORE 1 ROWS;
+COPY listingItems
+FROM '/Users/jasonjacob/Desktop/seniorProjects/sdc/jason-sdc-service/database/bookingsInfoCSV' DELIMITER ',' CSV HEADER;
+
+// mysql schema
+
+-- DROP DATABASE IF EXISTS reservation_service;
+
+-- CREATE DATABASE reservation_service;
+
+-- USE reservation_service;
+
+-- CREATE TABLE listingItems (
+--   id int NOT NULL AUTO_INCREMENT,
+--   listingId int NOT NULL,
+--   pricePerNight DECIMAL(5, 2) NOT NULL,
+--   weekend tinyint NOT NULL default 0,
+--   weekendPrice DECIMAL(3, 2) NOT NULL,
+--   maxGuests int NOT NULL,
+--   tax DECIMAL(3, 2) NOT NULL,
+--   PRIMARY KEY(id)
+-- );
+
+-- CREATE TABLE bookings (
+--   id int NOT NULL AUTO_INCREMENT,
+--   listingId int,
+--   nights int,
+--   month VARCHAR(4),
+--   checkIn VARCHAR(10),
+--   checkOut VARCHAR(10),
+--   guests int,
+--   children int default 0,
+--   infants int default 0,
+--   PRIMARY KEY(id)
+-- );
+
+-- LOAD DATA LOCAL INFILE '/Users/jasonjacob/Desktop/seniorProjects/sdc/jason-sdc-service/database/listingInfoCSV'
+-- INTO TABLE listingItems
+-- FIELDS TERMINATED BY ','
+-- ENCLOSED BY '"'
+-- LINES TERMINATED BY '\n'
+-- IGNORE 1 ROWS;
+
+-- LOAD DATA LOCAL INFILE '/Users/jasonjacob/Desktop/seniorProjects/sdc/jason-sdc-service/database/bookingsInfoCSV'
+-- INTO TABLE bookings
+-- FIELDS TERMINATED BY ','
+-- ENCLOSED BY '"'
+-- LINES TERMINATED BY '\n'
+-- IGNORE 1 ROWS;
+
+/*  Execute this file for mysql from the command line by typing:
+ *    mysql -u root < schema.sql
+ *  to create the database and the tables. */
 
 `;
+
 var writeSchema = function (callback) {
   fs.writeFile ('../schema.sql', schema, function (err, results) {
     if (err) {
