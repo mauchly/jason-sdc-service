@@ -1,38 +1,40 @@
 -- Postgres schema
 
 --  Execute this file for Postgres from the command line by typing:
---    psql -f schema.sql -U jasonjacob reservation_service
---  with the database already created to generate and seed the tables.
+--    psql -f schema.sql -U <pgUsername> reservation_service
+--  with the database reservation_service already created to generate and seed the tables.
 
-CREATE TABLE listingItems (
-  id int NOT NULL,
-  listingId int NOT NULL,
-  pricePerNight DECIMAL(5, 2) NOT NULL,
-  weekend boolean NOT NULL default 'false',
-  weekendPrice DECIMAL(3, 2) NOT NULL,
-  maxGuests int NOT NULL,
-  tax DECIMAL(3, 2) NOT NULL,
-  PRIMARY KEY(id)
-);
+-- CREATE TABLE listingItems (
+--   id int NOT NULL,
+--   listingId int NOT NULL,
+--   pricePerNight DECIMAL(5, 2) NOT NULL,
+--   weekend boolean NOT NULL default 'false',
+--   weekendPrice DECIMAL(3, 2) NOT NULL,
+--   maxGuests int NOT NULL,
+--   tax DECIMAL(3, 2) NOT NULL,
+--   PRIMARY KEY(id)
+-- );
 
-CREATE TABLE bookings (
-  id int NOT NULL,
-  listingId int,
-  nights int,
-  month VARCHAR(5),
-  checkIn VARCHAR(10),
-  checkOut VARCHAR(10),
-  guests int,
-  children int default 0,
-  infants int default 0,
-  PRIMARY KEY(id)
-);
+-- CREATE TABLE bookings (
+--   id int NOT NULL,
+--   listingId int,
+--   nights int,
+--   month VARCHAR(5),
+--   checkIn VARCHAR(10),
+--   checkOut VARCHAR(10),
+--   guests int,
+--   children int default 0,
+--   infants int default 0,
+--   PRIMARY KEY(id)
+-- );
 
-COPY listingItems
-FROM '/Users/jasonjacob/Desktop/seniorProjects/sdc/jason-sdc-service/database/listingInfoCSV' DELIMITER ',' CSV HEADER;
+-- COPY listingItems
+-- FROM '/Users/jasonjacob/Desktop/seniorProjects/sdc/jason-sdc-service/database/listingInfoCSV' DELIMITER ',' CSV HEADER;
 
-COPY bookings
-FROM '/Users/jasonjacob/Desktop/seniorProjects/sdc/jason-sdc-service/database/bookingsInfoCSV' DELIMITER ',' CSV HEADER;
+-- COPY bookings
+-- FROM '/Users/jasonjacob/Desktop/seniorProjects/sdc/jason-sdc-service/database/bookingsInfoCSV' DELIMITER ',' CSV HEADER;
+
+------------------------------------------------------------------------------------------------------
 
 -- mysql schema
 
@@ -83,3 +85,11 @@ FROM '/Users/jasonjacob/Desktop/seniorProjects/sdc/jason-sdc-service/database/bo
 --  Execute this file for mysql from the command line by typing:
 --    mysql -u root < schema.sql
 --  to create the database and generate and seed the tables.
+
+
+------------------------------------------------------------------------------------------------------
+
+
+-- run these commands from inside database directory in command line to seed MongoDB
+-- mongoimport --type csv -d reservation_service -c listingItems --headerline --drop listingInfoCSV
+-- mongoimport --type csv -d reservation_service -c bookings --headerline --drop bookingsInfoCSV

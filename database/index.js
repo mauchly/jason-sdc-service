@@ -1,22 +1,64 @@
+// MySQL config
+
 // const mysql = require('mysql');
 // const mysqlConfig = require('./config.js');
-const { Client } = require('pg');
-const client = new Client({
-  user: 'jasonjacob',
-  host: 'localhost',
-  database: 'reservation_service',
-  password: ''
-});
-
-client.connect();
-
-
-client.query('SELECT $1::text as message', ['Hello world!'], (err, res) => {
-  console.log(err ? err.stack : res.rows[0].message);
-  client.end();
-});
 
 // const connection = mysql.createConnection(mysqlConfig);
+
+////////////////////////////////////////////////////////////////
+
+//postgreSQL Config
+
+// const { Client } = require('pg');
+// const client = new Client({
+//   user: 'jasonjacob',
+//   host: 'localhost',
+//   password: '',
+//   database: 'reservation_service'
+// });
+
+// client.connect();
+
+// client.query('SELECT $1::text as message', ['Hello world!'], (err, res) => {
+//   console.log(err ? err.stack : res.rows[0].message);
+//   client.end();
+// });
+
+////////////////////////////////////////////////////////////////////////////////////
+
+// MongoDB Config
+
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+mongoose.connect('mongodb://localhost/reservation_service', { useNewUrlParser: true, useUnifiedTopology: true });
+
+let listingItemsSchema = new Schema({
+  id: Number,
+  listingId: Number,
+  pricePerNight: Number,
+  weekend: Boolean,
+  weekendPrice: Number,
+  maxGuests: Number,
+  tax: Number
+});
+
+let bookingsSchema = new Schema({
+  id: Number,
+  listingId: Number,
+  nights: Number,
+  month: String,
+  checkIn: String,
+  checkOut: String,
+  guests: Number,
+  children: Number,
+  infants: Number
+});
+
+let listingItems = mongoose.model('listingItems', listingItemsSchema);
+let bookings = mongoose.model('bookings', bookingsSchema);
+
+
+//////////////////////////////////////////////////////////////////////////////
 
 const getListingInfo = (listingId, callback) => {
   var queryStr = `Select * from listingItems Where listingId=${listingId};`
