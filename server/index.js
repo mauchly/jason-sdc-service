@@ -5,23 +5,19 @@ const path = require('path');
 const { connection, getListingInfo, getBookedDates, createListingInfo, updateListingInfo, deleteListing } = require ('../database');
 const fs = require('fs');
 const fullPath = '/Users/jasonjacob/Desktop/seniorProjects/sdc/jason-sdc-service/client/dist/index.html';
-
 const app = express();
+const PORT = 3001;
+
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
   extended: true
-}))
+}));
 app.use(bodyParser.json());
-
-
 app.use(express.static(__dirname + '/../client/dist'));
-
-
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   next();
 });
-
 
 app.get('/listingInfo', (req, res) => {
   //should give listingId 10001 back to the client when page first renders
@@ -36,7 +32,7 @@ app.get('/listingInfo', (req, res) => {
       res.status(200).end(stringifyResults);
     }
   });
-})
+});
 
 app.post('/listingInfo', (req, res) => {
   //should give listingId 10001 back to the client when page first renders
@@ -50,7 +46,7 @@ app.post('/listingInfo', (req, res) => {
     console.log('error', err);
     res.status(404).end('COULD NOT CREATE LISTING');
   });
-})
+});
 
 app.put('/listingInfo', (req, res) => {
   let update = req.query.update;
@@ -90,10 +86,8 @@ app.post('/getBookedDates', (req, res) => {
      // console.log(stringifyResults)
       res.status(202).end(stringifyResults);
     }
-  })
-
-})
-
+  });
+});
 
 app.get('/:id', (req, res) => {
  // console.log('hit here', __dirname)
@@ -104,21 +98,12 @@ app.get('/:id', (req, res) => {
     } else {
       res.end(results);
     }
-  })
-})
-
-
-
-
-
-
-
-
-var port = 3001;
+  });
+});
 
 app.listen(port, () => {
-  console.log(`server listening at ${port}`)
-})
+  console.log(`server listening at ${PORT}`)
+});
 
 
 module.exports = app;
