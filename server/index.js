@@ -29,7 +29,7 @@ app.get('/listingInfo', (req, res) => {
   //console.log('reqID', reqId)
   getListingInfo(reqId, (err, results) => {
     if (err) {
-      res.status(404).end('NOT FOUND')
+      res.status(404).end('NOT FOUND');
       console.log('err', err);
     } else {
       var stringifyResults = JSON.stringify(results);
