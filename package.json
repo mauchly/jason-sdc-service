@@ -24,6 +24,7 @@
     "jest-cli": "^25.2.7",
     "jquery": "^3.5.0",
     "minimist": "^1.2.5",
+    "mongoose": "^5.9.13",
     "morgan": "^1.9.1",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.2",
