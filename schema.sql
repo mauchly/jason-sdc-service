@@ -1,4 +1,4 @@
--- Postgres schema
+-- Postgres schema --
 
 --  Execute this file for Postgres from the command line by typing:
 --    psql -f schema.sql -U jasonjacob reservation_service
@@ -25,12 +25,13 @@ CREATE TABLE bookings (
   guests int,
   children int default 0,
   infants int default 0,
-  PRIMARY KEY(id)
+  PRIMARY KEY(id),
+  FOREIGN KEY (listingId) REFERENCES listingItems (id)
 );
 
 COPY listingItems
 FROM '/Users/jasonjacob/Desktop/seniorProjects/sdc/jason-sdc-service/database/listingInfoCSV' DELIMITER ',' CSV HEADER;
-
+\
 COPY bookings
 FROM '/Users/jasonjacob/Desktop/seniorProjects/sdc/jason-sdc-service/database/bookingsInfoCSV' DELIMITER ',' CSV HEADER;
 
