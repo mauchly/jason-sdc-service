@@ -4,11 +4,9 @@ const { ListingItems, Bookings } = require('../models/models.js');
 const getListingInfo = (listingId) => {
   // console.log('listingId', listingId)
   return new Promise((resolve, reject) => {
-    console.log('skdkf', ListingItems);
-    console.log('kjlkj', Bookings);
     ListingItems.find({id: listingId})
     .then((results) => {
-      console.log('results', results);
+      // console.log('results', results);
       resolve(results);
     })
     .catch((err) => {
@@ -19,10 +17,11 @@ const getListingInfo = (listingId) => {
 };
 
 const getBookedDates = (listingId) => {
+  console.log('GBD listingId', listingId);
   return new Promise((resolve, reject) => {
     Bookings.find({listingId: listingId})
     .then((results) => {
-      // console.log('results', results);
+      console.log('results', results);
       resolve(results);
     })
     .catch((err) => {

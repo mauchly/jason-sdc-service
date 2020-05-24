@@ -71,7 +71,7 @@ class Reservation extends React.Component {
       grid: grid,
       monthNumber: currentMonth
     });
-    var listingId = 1;
+    var listingId;
     var urlOne = 'http://localhost:3001/listingInfo';
     var windowUrlString = window.location.href;
     let searchedId = windowUrlString.split('/').pop();
@@ -243,7 +243,7 @@ class Reservation extends React.Component {
   })
  };
 
- getBookedDates (url, id) {
+getBookedDates (url, id) {
   var bodyObj = {
     listingId: id
   };
@@ -252,21 +252,21 @@ class Reservation extends React.Component {
     url: url,
     data: bodyObj,
     success: (data) => {
-    var parsedData = JSON.parse(data);
-    console.log('parsedData', parsedData)
-    var checkIn = parsedData[0].checkIn;
-    var checkOut = parsedData[0].checkOut;
-    console.log('getBookedDates', parsedData)
-    var bookedDatesArray = iterateOverDataArray(parsedData);
-    this.setState({
-      bookedDates: bookedDatesArray
-    })
+      var parsedData = JSON.parse(data);
+      console.log('parsedData', parsedData)
+      var checkIn = parsedData[0].checkIn;
+      var checkOut = parsedData[0].checkOut;
+      console.log('getBookedDates', parsedData)
+      var bookedDatesArray = iterateOverDataArray(parsedData);
+      this.setState({
+        bookedDates: bookedDatesArray
+      })
     },
     error: (err) => {
-      console.log('error', err);
+      console.log('getBookedDates error', err);
     }
-  })
- }
+  });
+}
 
  onHandleGuestsClick () {
    if (this.state.toggleGuestsMenuCount === 0) {
