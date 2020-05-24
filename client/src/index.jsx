@@ -226,13 +226,12 @@ class Reservation extends React.Component {
       console.log('data', data)
     var parsedData = JSON.parse(data);
     //console.log('postIdToToServer Data', parsedData)
-    var name = parsedData[0].listingName;
+    // var name = parsedData[0].listingName;
     var price = parsedData[0].pricePerNight;
     var maxGuests = parsedData[0].maxGuests;
     var weekendBoolean = parsedData[0].weekend;
     var tax = parsedData[0].tax;
     this.setState({
-      listingName: name,
       price: price,
       maxGuests: maxGuests,
       tax: tax

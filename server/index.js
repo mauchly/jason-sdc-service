@@ -1,12 +1,12 @@
 const express = require('express');
+const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
-const { connection, getListingInfo, getBookedDates, createListingInfo, updateListingInfo, deleteListing } = require ('../database');
+const { connection, getListingInfo, getBookedDates, createListingInfo, updateListingInfo, deleteListing } = require ('../database/controllers/controllers.js');
 const fs = require('fs');
 const fullPath = '/Users/jasonjacob/Desktop/seniorProjects/sdc/jason-sdc-service/client/dist/index.html';
 
-const app = express();
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
   extended: true
@@ -19,19 +19,20 @@ app.use(function(req, res, next) {
 });
 
 app.get('/listingInfo', (req, res) => {
-  //should give listingId 10001 back to the client when page first renders
+  //should give listingId back to the client when page first renders
   var reqId = req.query.listingId //.listingId;
-  //console.log('reqID', reqId)
-  getListingInfo(reqId, (err, results) => {
-    if (err) {
-      res.status(404).end('NOT FOUND');
-      console.log('err', err);
-    } else {
-      var stringifyResults = JSON.stringify(results);
-      res.status(200).end(stringifyResults);
-    }
+  // console.log('reqID', reqId)
+  getListingInfo(reqId)
+  .then((results) => {
+    let stringifyResults = JSON.stringify(results);
+    // console.log('RESULTS: ', results, 'STRINGIFIED RESULTS', stringifyResults);
+    res.status(200).end(stringifyResults);
+  })
+  .catch((err) => {
+    res.status(404).end('NOT FOUND');
+    console.log('err', err);
   });
-})
+});
 
 app.post('/listingInfo', (req, res) => {
   //should give listingId 10001 back to the client when page first renders
@@ -90,8 +91,8 @@ app.post('/getBookedDates', (req, res) => {
 
 
 app.get('/:id', (req, res) => {
- // console.log('hit here', __dirname)
-  //res.render(fullPath)
+//  console.log('hit here', __dirname)
+  // res.render(fullPath)
   fs.readFile(fullPath, 'utf8', (err, results) => {
     if (err) {
       console.log(err);
