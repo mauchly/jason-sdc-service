@@ -316,26 +316,6 @@ getBookedDates (url, id) {
    });
  };
 
- onTestSubmit (e) {
-   let id = $('#testInput').val();
-   let data = {listingId: id};
-  //  console.log('test data', id);
-   console.log('test delete data', data);
-   $.ajax({
-     method: 'DELETE',
-     url: '/listingInfo',
-     contentType: 'application/json',
-     data: JSON.stringify(data),
-     success: (results) => {
-       results = JSON.parse(results);
-       console.log(`succesful deletion of listing id ${results.id}`, results);
-     },
-     error: (err) => {
-       console.log('error', err);
-     }
-   })
- }
-
   render () {
     var placeHolderOne;
     var placeHolderTwo;
@@ -360,8 +340,6 @@ getBookedDates (url, id) {
 
     return (
       <div className="mainFrame">
-        <input id="testInput"></input>
-        <button type="submit" value="submit" onClick={this.onTestSubmit}>Submit</button>
         <p>${this.state.price}
           <span className="perNight"> per night</span>
         </p>
@@ -395,4 +373,4 @@ getBookedDates (url, id) {
 }
 
 //{this.state.displayGuestsMenu && <GuestsDisplay />}
-ReactDOM.render(<Reservation/>, document.getElementById('reservation'))
+ReactDOM.render(<Reservation/>, document.getElementById('reservation'));
