@@ -372,5 +372,4 @@ getBookedDates (url, id) {
   };
 }
 
-//{this.state.displayGuestsMenu && <GuestsDisplay />}
-ReactDOM.render(<Reservation/>, document.getElementById('reservation'));
+export default Reservation;
