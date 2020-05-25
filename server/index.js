@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const PORT = 3001;
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -19,7 +20,6 @@ app.use(function(req, res, next) {
 });
 
 app.get('/listingInfo', (req, res) => {
-  //should give listingId back to the client when page first renders
   var reqId = req.query.listingId //.listingId;
   // console.log('reqID', reqId)
   getListingInfo(reqId)
@@ -35,8 +35,8 @@ app.get('/listingInfo', (req, res) => {
 });
 
 app.post('/listingInfo', (req, res) => {
-  //should give listingId 10001 back to the client when page first renders
-  var listingInfo = req.query.listingInfo;
+  let listingInfo = req.body.listingInfo;
+  listingInfo = JSON.parse(listingInfo);
   createListingInfo(listingInfo)
   .then((results) => {
     let stringifiedResults = JSON.stringify(results);
@@ -44,12 +44,13 @@ app.post('/listingInfo', (req, res) => {
   })
   .catch((err) => {
     console.log('error', err);
-    res.status(404).end('COULD NOT CREATE LISTING');
+    res.status(404).end('NOT CREATED');
   });
 })
 
 app.put('/listingInfo', (req, res) => {
-  let update = req.query.update;
+  let update = req.body.listingInfo;
+  update = JSON.parse(update);
   updateListingInfo(update)
   .then((results) => {
     let stringifiedResults = JSON.stringify(results);
@@ -57,12 +58,13 @@ app.put('/listingInfo', (req, res) => {
   })
   .catch((err) => {
     console.log('error', err);
-    res.status(404).end('COULD NOT UPDATE');
+    res.status(404).end('NOT UPDATED');
   });
 });
 
 app.delete('/listingInfo', (req, res) => {
-  let listingId = req.query.listingId;
+  let listingId = req.body.listingId;
+  console.log('listingId', listingId);
   deleteListing(listingId)
   .then((results) => {
     let stringifiedResults = JSON.stringify(results);
@@ -70,18 +72,17 @@ app.delete('/listingInfo', (req, res) => {
   })
   .catch((err) => {
     console.log('error', err);
-    res.status(404).end('COULD NOT UPDATE');
+    res.status(404).end('NOT DELETED');
   });
 });
 
-app.post('/getBookedDates', (req, res) => {
-  var listingId = req.body.listingId;
-  // console.log('reqbody', req.body)
-  // console.log('listingId from getBookedDates', listingId)
+app.get('/getBookedDates', (req, res) => {
+  var listingId = req.query.listingId;
+  // console.log('listingId', listingId);
   getBookedDates(listingId)
   .then((results) => {
+    // console.log(results);
     var stringifyResults = JSON.stringify(results);
-    console.log(stringifyResults)
      res.status(202).end(stringifyResults);
   })
   .catch((err) => {
@@ -92,21 +93,12 @@ app.post('/getBookedDates', (req, res) => {
 
 
 app.get('/:id', (req, res) => {
-//  console.log('hit here', __dirname)
-  // res.render(fullPath)
-  fs.readFile(fullPath, 'utf8', (err, results) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.end(results);
-    }
-  })
+  // Gives listingId back to client when page first renders
+  res.sendFile(fullPath);
 });
 
-var port = 3001;
-
-app.listen(port, () => {
-  console.log(`server listening at ${port}`)
+app.listen(PORT, () => {
+  console.log(`server listening at ${PORT}`)
 });
 
 

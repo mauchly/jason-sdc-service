@@ -201,16 +201,15 @@ class Reservation extends React.Component {
        console.log('removeComma', removeComma)
        this.setState({
          reviews: removeComma
-       })
+       });
      },
      error: (err) => {
-       console.log('error', err);
-       console.log('Could not get reviews, inserting hardcoded reviews...');
+       console.log('Could not get reviews, inserting hardcoded reviews...', err);
        this.setState({
         reviews: ["5.00", " (100 reviews)"]
-      })
+      });
      }
-   })
+   });
  };
 
  getListingInfoFromServer (url, id) {
@@ -248,15 +247,15 @@ getBookedDates (url, id) {
     listingId: id
   };
   $.ajax({
-    method: 'POST',
+    method: 'GET',
     url: url,
     data: bodyObj,
     success: (data) => {
       var parsedData = JSON.parse(data);
-      console.log('parsedData', parsedData)
+      // console.log('parsedData', parsedData);
       var checkIn = parsedData[0].checkIn;
       var checkOut = parsedData[0].checkOut;
-      console.log('getBookedDates', parsedData)
+      console.log('getBookedDates', parsedData);
       var bookedDatesArray = iterateOverDataArray(parsedData);
       this.setState({
         bookedDates: bookedDatesArray
@@ -317,6 +316,26 @@ getBookedDates (url, id) {
    });
  };
 
+ onTestSubmit (e) {
+   let id = $('#testInput').val();
+   let data = {listingId: id};
+  //  console.log('test data', id);
+   console.log('test delete data', data);
+   $.ajax({
+     method: 'DELETE',
+     url: '/listingInfo',
+     contentType: 'application/json',
+     data: JSON.stringify(data),
+     success: (results) => {
+       results = JSON.parse(results);
+       console.log(`succesful deletion of listing id ${results.id}`, results);
+     },
+     error: (err) => {
+       console.log('error', err);
+     }
+   })
+ }
+
   render () {
     var placeHolderOne;
     var placeHolderTwo;
@@ -341,6 +360,8 @@ getBookedDates (url, id) {
 
     return (
       <div className="mainFrame">
+        <input id="testInput"></input>
+        <button type="submit" value="submit" onClick={this.onTestSubmit}>Submit</button>
         <p>${this.state.price}
           <span className="perNight"> per night</span>
         </p>
