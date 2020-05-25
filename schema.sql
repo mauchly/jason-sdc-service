@@ -91,5 +91,5 @@
 
 
 -- run these commands from inside database directory in command line to seed MongoDB
--- mongoimport --type csv -d reservation_service -c listingItems --headerline --drop listingInfoCSV
+-- mongoimport --type csv -d reservation_service -c listingitems --headerline --drop listingInfoCSV
 -- mongoimport --type csv -d reservation_service -c bookings --headerline --drop bookingsInfoCSV

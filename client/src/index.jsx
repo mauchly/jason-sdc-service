@@ -71,7 +71,7 @@ class Reservation extends React.Component {
       grid: grid,
       monthNumber: currentMonth
     });
-    var listingId = 1;
+    var listingId;
     var urlOne = 'http://localhost:3001/listingInfo';
     var windowUrlString = window.location.href;
     let searchedId = windowUrlString.split('/').pop();
@@ -201,16 +201,15 @@ class Reservation extends React.Component {
        console.log('removeComma', removeComma)
        this.setState({
          reviews: removeComma
-       })
+       });
      },
      error: (err) => {
-       console.log('error', err);
-       console.log('Could not get reviews, inserting hardcoded reviews...');
+       console.log('Could not get reviews, inserting hardcoded reviews...', err);
        this.setState({
         reviews: ["5.00", " (100 reviews)"]
-      })
+      });
      }
-   })
+   });
  };
 
  getListingInfoFromServer (url, id) {
@@ -226,13 +225,12 @@ class Reservation extends React.Component {
       console.log('data', data)
     var parsedData = JSON.parse(data);
     //console.log('postIdToToServer Data', parsedData)
-    var name = parsedData[0].listingName;
+    // var name = parsedData[0].listingName;
     var price = parsedData[0].pricePerNight;
     var maxGuests = parsedData[0].maxGuests;
     var weekendBoolean = parsedData[0].weekend;
     var tax = parsedData[0].tax;
     this.setState({
-      listingName: name,
       price: price,
       maxGuests: maxGuests,
       tax: tax
@@ -244,30 +242,30 @@ class Reservation extends React.Component {
   })
  };
 
- getBookedDates (url, id) {
+getBookedDates (url, id) {
   var bodyObj = {
     listingId: id
   };
   $.ajax({
-    method: 'POST',
+    method: 'GET',
     url: url,
     data: bodyObj,
     success: (data) => {
-    var parsedData = JSON.parse(data);
-    console.log('parsedData', parsedData)
-    var checkIn = parsedData[0].checkIn;
-    var checkOut = parsedData[0].checkOut;
-    console.log('getBookedDates', parsedData)
-    var bookedDatesArray = iterateOverDataArray(parsedData);
-    this.setState({
-      bookedDates: bookedDatesArray
-    })
+      var parsedData = JSON.parse(data);
+      // console.log('parsedData', parsedData);
+      var checkIn = parsedData[0].checkIn;
+      var checkOut = parsedData[0].checkOut;
+      console.log('getBookedDates', parsedData);
+      var bookedDatesArray = iterateOverDataArray(parsedData);
+      this.setState({
+        bookedDates: bookedDatesArray
+      })
     },
     error: (err) => {
-      console.log('error', err);
+      console.log('getBookedDates error', err);
     }
-  })
- }
+  });
+}
 
  onHandleGuestsClick () {
    if (this.state.toggleGuestsMenuCount === 0) {
@@ -318,6 +316,26 @@ class Reservation extends React.Component {
    });
  };
 
+ onTestSubmit (e) {
+   let id = $('#testInput').val();
+   let data = {listingId: id};
+  //  console.log('test data', id);
+   console.log('test delete data', data);
+   $.ajax({
+     method: 'DELETE',
+     url: '/listingInfo',
+     contentType: 'application/json',
+     data: JSON.stringify(data),
+     success: (results) => {
+       results = JSON.parse(results);
+       console.log(`succesful deletion of listing id ${results.id}`, results);
+     },
+     error: (err) => {
+       console.log('error', err);
+     }
+   })
+ }
+
   render () {
     var placeHolderOne;
     var placeHolderTwo;
@@ -342,6 +360,8 @@ class Reservation extends React.Component {
 
     return (
       <div className="mainFrame">
+        <input id="testInput"></input>
+        <button type="submit" value="submit" onClick={this.onTestSubmit}>Submit</button>
         <p>${this.state.price}
           <span className="perNight"> per night</span>
         </p>
