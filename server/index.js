@@ -1,3 +1,4 @@
+require('newrelic');
 const express = require('express');
 const app = express();
 const PORT = 3001;
@@ -78,12 +79,12 @@ app.delete('/listingInfo', (req, res) => {
 
 app.get('/getBookedDates', (req, res) => {
   var listingId = req.query.listingId;
-  // console.log('listingId', listingId);
+  console.log('listingId', listingId);
   getBookedDates(listingId)
   .then((results) => {
     // console.log(results);
     var stringifyResults = JSON.stringify(results);
-     res.status(202).end(stringifyResults);
+     res.status(200).end(stringifyResults);
   })
   .catch((err) => {
     console.log('getBookedDates', err);
@@ -94,6 +95,7 @@ app.get('/getBookedDates', (req, res) => {
 
 app.get('/:id', (req, res) => {
   // Gives listingId back to client when page first renders
+  console.log('from /:id', req.url);
   res.sendFile(fullPath);
 });
 

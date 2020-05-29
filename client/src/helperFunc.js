@@ -103,12 +103,14 @@ export const getDatesRange = (checkIn, checkOut) => {
   var storage = [];
   var year = 2020;
   var dateString;
-  var checkInMonth = checkIn.slice(0, 2);
-  var checkOutMonth = checkOut.slice(0, 2);
-  console.log('checInMonth', checkInMonth)
-  var checkInMonthDays = Number(checkIn.slice(3));
-  var checkOutMonthDays = Number(checkOut.slice(3));
-  console.log('checkInMonthSDays', checkInMonthDays);
+  var checkInMonth = checkIn.slice(1, 3);
+  var checkOutMonth = checkOut.slice(1, 3);
+  console.log('checkInMonth', checkInMonth)
+  console.log('checkIn', checkIn)
+  console.log('checkOut', checkOut)
+  var checkInMonthDays = Number( checkIn.split('-').pop().slice(0, -1));
+  var checkOutMonthDays = Number(checkOut.split('-').pop().slice(0, -1));
+  console.log('checkInMonthDays', checkInMonthDays);
   //same month for checkin date and checkout date
   if (checkInMonth === checkOutMonth ) {
     for (var i = checkInMonthDays; i <= checkOutMonthDays; i++){
@@ -134,6 +136,7 @@ export const getDatesRange = (checkIn, checkOut) => {
       storage.push(dateString);
    }
   }
+  console.log('storage', storage);
   return storage;
 }
 
