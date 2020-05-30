@@ -21,8 +21,8 @@ app.use(function(req, res, next) {
 });
 
 app.get('/listingInfo', (req, res) => {
-  var reqId = req.query.listingId //.listingId;
-  // console.log('reqID', reqId)
+  var reqId = req.query.listingId
+  console.log('reqID', reqId);
   getListingInfo(reqId)
   .then((results) => {
     let stringifyResults = JSON.stringify(results);
@@ -50,8 +50,9 @@ app.post('/listingInfo', (req, res) => {
 })
 
 app.put('/listingInfo', (req, res) => {
-  let update = req.body.listingInfo;
-  update = JSON.parse(update);
+  let update = req.body;
+  // update = JSON.parse(update);
+  console.log('put update', update);
   updateListingInfo(update)
   .then((results) => {
     let stringifiedResults = JSON.stringify(results);

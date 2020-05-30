@@ -1,0 +1,40 @@
+config:
+  target: 'http://localhost:3001'
+  processor: './artilleryFunctions.js'
+  phases:
+    - duration: 15
+      arrivalRate: 10
+    - duration: 30
+      arrivalRate: 100
+      rampTo: 300
+    - duration: 60
+      arrivalRate: 300
+      rampTo: 600
+    - duration: 60
+      arrivalRate: 600
+
+scenarios:
+  # - name: 'GET listingInfo'
+  #   flow:
+  #     - function: 'artilleryContext'
+  #     - get:
+  #         url: '/listingInfo?listingId={{ listingId }}'
+    # - name: 'PUT listingInfo'
+    #   flow:
+    #     - function: 'artilleryContext'
+    #     - put:
+    #         url: '/listingInfo'
+    #         json:
+    #           id: "{{ listingId }}"
+    #           listingId: "{{ listingId }}"
+    #           pricePerNight: "{{ pricePerNight }}"
+    #           weeked: "{{ weekend }}"
+    #           weekendPrice: "{{ weekendPrice }}"
+    #           maxGuests: "{{ maxGuests }}"
+    #           tax: "{{ tax }}"
+      - name: 'GET getBookedDates'
+        flow:
+          - function: 'artilleryContext'
+          - get:
+              url: '/getBookedDates?listingId={{ listingId }}'
+
