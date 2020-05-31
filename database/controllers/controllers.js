@@ -50,7 +50,7 @@ const updateListingInfo = (update) => {
   return new Promise((resolve, reject) => {
     ListingItems.findOneAndUpdate({id: update.id}, update, {upsert: true})
     .then((results) => {
-      console.log('success from updateListingInfo', results);
+      // console.log('success from updateListingInfo', results);
       resolve(results);
     })
     .catch((err) => {

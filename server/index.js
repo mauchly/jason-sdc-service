@@ -34,7 +34,7 @@ const listingInfoCache = (req, res, next) => {
       console.log('error', err);
     }
     if (results !== null) {
-      console.log('serving cached listingInfo data...');
+      // console.log('serving cached listingInfo data...');
       res.status(200).end(results);
     } else {
       next();
@@ -49,7 +49,7 @@ const getBookedDatesCache = (req, res, next) => {
       console.log('error', err);
     }
     if (results !== null) {
-      console.log('serving cached getBookedDates data...');
+      // console.log('serving cached getBookedDates data...');
       res.status(200).end(results);
     } else {
       next();
@@ -91,7 +91,7 @@ app.post('/listingInfo', (req, res) => {
 app.put('/listingInfo', (req, res) => {
   let update = req.body;
   // update = JSON.parse(update);
-  console.log('put update', update);
+  // console.log('put update', update);
   updateListingInfo(update)
   .then((results) => {
     let stringifiedResults = JSON.stringify(results);
