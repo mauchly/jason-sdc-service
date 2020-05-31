@@ -1,13 +1,20 @@
 require('newrelic');
 const express = require('express');
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
 const { connection, getListingInfo, getBookedDates, createListingInfo, updateListingInfo, deleteListing } = require ('../database/controllers/controllers.js');
 const fs = require('fs');
 const fullPath = '/Users/jasonjacob/Desktop/seniorProjects/sdc/jason-sdc-service/client/dist/index.html';
+const redis = require('redis');
+const REDIS_PORT = process.env.PORT || 6379;
+const client = redis.createClient(REDIS_PORT);
+
+client.on('error', (err) => {
+  console.log('error, ', err);
+});
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
@@ -20,13 +27,45 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('/listingInfo', (req, res) => {
+const listingInfoCache = (req, res, next) => {
+  let { listingId } = req.query;
+  client.get(`listingInfo${listingId}`, (err, results) => {
+    if (err) {
+      console.log('error', err);
+    }
+    if (results !== null) {
+      console.log('serving cached listingInfo data...');
+      res.status(200).end(results);
+    } else {
+      next();
+    }
+  });
+};
+
+const getBookedDatesCache = (req, res, next) => {
+  let { listingId } = req.query;
+  client.get(`getBookedDates${listingId}`, (err, results) => {
+    if (err) {
+      console.log('error', err);
+    }
+    if (results !== null) {
+      console.log('serving cached getBookedDates data...');
+      res.status(200).end(results);
+    } else {
+      next();
+    }
+  });
+};
+
+app.get('/listingInfo', listingInfoCache, (req, res) => {
+  console.log('fetching listingInfo...');
   var reqId = req.query.listingId
-  console.log('reqID', reqId);
+  // console.log('reqID', reqId);
   getListingInfo(reqId)
   .then((results) => {
     let stringifyResults = JSON.stringify(results);
     // console.log('RESULTS: ', results, 'STRINGIFIED RESULTS', stringifyResults);
+    client.setex(`listingInfo${reqId}`, 86400, stringifyResults);
     res.status(200).end(stringifyResults);
   })
   .catch((err) => {
@@ -78,17 +117,19 @@ app.delete('/listingInfo', (req, res) => {
   });
 });
 
-app.get('/getBookedDates', (req, res) => {
+app.get('/getBookedDates', getBookedDatesCache, (req, res) => {
+  console.log('fetching booked dates...');
   var listingId = req.query.listingId;
-  console.log('listingId', listingId);
+  // console.log('listingId', listingId);
   getBookedDates(listingId)
   .then((results) => {
-    // console.log(results);
+    // console.log('getBookedDates results', results);
     var stringifyResults = JSON.stringify(results);
-     res.status(200).end(stringifyResults);
+    client.setex(`getBookedDates${listingId}`, 86400, stringifyResults);
+    res.status(200).end(stringifyResults);
   })
   .catch((err) => {
-    console.log('getBookedDates', err);
+    console.log('getBookedDates error', err);
     res.status(404).end('NOT FOUND');
   });
 });
@@ -96,7 +137,7 @@ app.get('/getBookedDates', (req, res) => {
 
 app.get('/:id', (req, res) => {
   // Gives listingId back to client when page first renders
-  console.log('from /:id', req.url);
+  // console.log('from /:id', req.url);
   res.sendFile(fullPath);
 });
 

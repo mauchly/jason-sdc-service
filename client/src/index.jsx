@@ -62,8 +62,8 @@ class Reservation extends React.Component {
     var monthFirstDay = getMonthFirstDay(currentMonth, currentYear)
     var days = getMonthDays(currentMonth)
     var monthName = getMonth(currentMonth)
-    //console.log('monthName', typeof monthName)
-    //console.log(monthFirstDay)
+    console.log('monthName', typeof monthName)
+    console.log(monthFirstDay)
     var grid = createMonth(days, monthFirstDay);
     this.setState({
       currentYear: currentYear,
@@ -119,11 +119,11 @@ class Reservation extends React.Component {
    var currentYear = this.state.currentYear;
    var currentMonth = this.state.monthNumber;
    var newMonth = currentMonth -1;
-  //  console.log('newMonth', newMonth);
+   console.log('newMonth', newMonth);
    var monthFirstDay = getMonthFirstDay(newMonth, currentYear);
    var days = getMonthDays(newMonth);
-  //  console.log('daysOfNext', days);
-  //  console.log('monthFirstDay', monthFirstDay);
+   console.log('daysOfNext', days);
+   console.log('monthFirstDay', monthFirstDay);
    var monthName = getMonth(newMonth);
    var grid = createMonth(days, monthFirstDay);
    this.setState({
