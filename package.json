@@ -27,11 +27,13 @@
     "mongoose": "^5.9.13",
     "morgan": "^1.9.1",
     "mysql": "^2.18.1",
+    "newrelic": "^6.8.0",
     "nodemon": "^2.0.2",
     "pg": "^8.0.3",
     "react": "^16.12.0",
     "react-dates": "^21.8.0",
     "react-dom": "^16.12.0",
+    "redis": "^3.0.2",
     "style-loader": "^1.1.3",
     "superagent": "^5.2.2"
   },
