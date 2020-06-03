@@ -223,15 +223,15 @@ var toFillBookingsTable = function (arr, listingId) {
 
 // `;
 
-var writeSchema = function (callback) {
-  fs.writeFile ('../schema.sql', schema, function (err, results) {
-    if (err) {
-      console.log('err', err);
-    } else {
-      console.log('success');
-    };
-  });
-};
+// var writeSchema = function (callback) {
+//   fs.writeFile ('../schema.sql', schema, function (err, results) {
+//     if (err) {
+//       console.log('err', err);
+//     } else {
+//       console.log('success');
+//     };
+//   });
+// };
 
 // write Schema into Schema.sql file
 // writeSchema();
