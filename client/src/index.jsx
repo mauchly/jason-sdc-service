@@ -216,7 +216,7 @@ class Reservation extends React.Component {
   var bodyObj = {
     listingId: id
   };
-  console.log('reservation service: getListingInfoFromServer loading');
+  // console.log('getListingInfoFromServer loading');
   $.ajax({
     method: 'GET',
     url: url,
