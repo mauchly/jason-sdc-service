@@ -23,7 +23,7 @@ class Reservation extends React.Component {
       checkout: null,  //input from user
       bookedDates: [], //fetched from db
       listingName: '',
-      price: null,
+      price: 500,
       tax: null,
       serviceFee: 0.1,
       numOfNights: null,
