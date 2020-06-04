@@ -11,9 +11,9 @@ var DayComponent = (props) => {
     value = 'empty'
   }
   var name;
-  console.log('newBookedRange', props.newBookedDateRange)
-  if (props.newBookedDateRange.includes(value)){
-    console.log('wentIn newbookedDates')
+  // console.log('newBookedRange', props.newBookedDateRange);
+  if (props.newBookedDateRange.includes(value)) {
+    console.log('wentIn newbookedDates');
     name = 'bookedDates';
   }
   if (!props.booked.includes(value)) {

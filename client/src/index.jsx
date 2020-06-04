@@ -62,8 +62,8 @@ class Reservation extends React.Component {
     var monthFirstDay = getMonthFirstDay(currentMonth, currentYear)
     var days = getMonthDays(currentMonth)
     var monthName = getMonth(currentMonth)
-    console.log('monthName', typeof monthName)
-    console.log(monthFirstDay)
+    // console.log('monthName', typeof monthName);
+    // console.log('monthFirstDay', monthFirstDay);
     var grid = createMonth(days, monthFirstDay);
     this.setState({
       currentYear: currentYear,
@@ -216,7 +216,7 @@ class Reservation extends React.Component {
   var bodyObj = {
     listingId: id
   };
-  console.log('getListingInfoFromServer loading')
+  console.log('reservation service: getListingInfoFromServer loading');
   $.ajax({
     method: 'GET',
     url: url,

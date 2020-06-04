@@ -158,7 +158,7 @@ export const calculateNumOfNights = (checkIn, checkOut) => {
   var year = 2020;
   var checkInMonth = checkIn.slice(0, 2);
   var checkOutMonth = checkOut.slice(0, 2);
-  console.log('checkInMonth', checkInMonth)
+  // console.log('checkInMonth', checkInMonth);
   var checkInMonthDays = Number(checkIn.slice(3));
   var checkOutMonthDays = Number(checkOut.slice(3));
   if (checkInMonth === checkOutMonth) {
