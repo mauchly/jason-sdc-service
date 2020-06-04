@@ -24,7 +24,7 @@ class Reservation extends React.Component {
       bookedDates: [], //fetched from db
       listingName: '',
       price: 500,
-      tax: 1.1,
+      tax: 1.12,
       serviceFee: 0.1,
       numOfNights: null,
       maxGuests: null,
