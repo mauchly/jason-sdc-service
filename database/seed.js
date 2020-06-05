@@ -42,7 +42,7 @@ var toFillListingItemsTable = function (currentListingId) {
 };
 
 //invoke function to populate Listing table data
-// toFillListingItemsTable();
+toFillListingItemsTable();
 
 //to fill the arr with days of 4 months starting April - July //April [30 days], May[31 days], etc
 var makeCalendarDays = function() {
