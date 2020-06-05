@@ -11,7 +11,8 @@
     "react": "webpack -d --watch",
     "start": "nodemon --inspect server/index.js",
     "seed": "node database/seed.js",
-    "seed-db": "mysql -u root -p < schema.sql",
+    "seed-db-listingitems": "mongoimport --type csv -d reservation_service -c listingitems --headerline --drop listingInfoCSV",
+    "seed-db-bookings": "mongoimport --type csv -d reservation_service -c bookings --headerline --drop bookingsInfoCSV",
     "test": "jest"
   },
   "dependencies": {
