@@ -225,7 +225,7 @@ class Reservation extends React.Component {
     success: (data) => {
       console.log('data', data)
     var parsedData = JSON.parse(data);
-    //console.log('postIdToToServer Data', parsedData)
+    console.log('listingInfo GET success', parsedData)
     // var name = parsedData[0].listingName;
     var price = parsedData[0].pricePerNight;
     var maxGuests = parsedData[0].maxGuests;
@@ -238,7 +238,7 @@ class Reservation extends React.Component {
     })
     },
     error: (err) => {
-      console.log('error', err);
+      console.log('listingInfo GET error', err);
     }
   })
  };
