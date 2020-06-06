@@ -62,8 +62,8 @@ class Reservation extends React.Component {
     var monthFirstDay = getMonthFirstDay(currentMonth, currentYear)
     var days = getMonthDays(currentMonth)
     var monthName = getMonth(currentMonth)
-    console.log('monthName', typeof monthName);
-    console.log('monthFirstDay', monthFirstDay);
+    // console.log('monthName', typeof monthName);
+    // console.log('monthFirstDay', monthFirstDay);
     var grid = createMonth(days, monthFirstDay);
     this.setState({
       currentYear: currentYear,
