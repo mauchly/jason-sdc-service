@@ -72,7 +72,7 @@ class Reservation extends React.Component {
       monthNumber: currentMonth
     });
     var listingId;
-    var urlOne = 'http://ec2-3-101-76-20.us-west-1.compute.amazonaws.com:3001/listingInfo';
+    var urlOne = 'http://ec2-54-193-158-99.us-west-1.compute.amazonaws.com:3001/listingInfo';
     var windowUrlString = window.location.href;
     let searchedId = windowUrlString.split('/').pop();
     if (searchedId < 1 || searchedId > 10000000) {
@@ -83,7 +83,7 @@ class Reservation extends React.Component {
     var reviewUrl = 'http://localhost:3004/averageScore' + listingId;
     console.log('reviewUrl', reviewUrl);
     this.getListingInfoFromServer(urlOne, listingId);
-    this.getBookedDates('http://ec2-3-101-76-20.us-west-1.compute.amazonaws.com:3001/getBookedDates', listingId);
+    this.getBookedDates('http://ec2-54-193-158-99.us-west-1.compute.amazonaws.com:3001/getBookedDates', listingId);
     this.getReviews(reviewUrl);
   };
 
