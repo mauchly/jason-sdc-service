@@ -75,7 +75,7 @@ class Reservation extends React.Component {
     var urlOne = 'http://ec2-54-193-158-99.us-west-1.compute.amazonaws.com:3001/listingInfo';
     var windowUrlString = window.location.href;
     let searchedId = windowUrlString.split('/').pop();
-    console.log('searchedId', searchedId);
+    // console.log('searchedId', searchedId);
     if (searchedId < 1 || searchedId > 10000000) {
       listingId = 1
     } else {
@@ -96,7 +96,7 @@ class Reservation extends React.Component {
 
   //Calendar Component methods
    goToNextMonth () {
-     console.log('next')
+     console.log('next');
     var currentYear = this.state.currentYear;
     var currentMonth = this.state.monthNumber
     var newMonth = currentMonth +1;
@@ -116,7 +116,7 @@ class Reservation extends React.Component {
   };
 
   goToPreviousMonth () {
-    console.log('Previous')
+    console.log('Previous');
    var currentYear = this.state.currentYear;
    var currentMonth = this.state.monthNumber;
    var newMonth = currentMonth -1;
@@ -199,7 +199,7 @@ class Reservation extends React.Component {
      url: endPoint,
      success: (results) => {
        var removeComma = results.split(',');
-       console.log('removeComma', removeComma)
+      //  console.log('removeComma', removeComma);
        this.setState({
          reviews: removeComma
        });
@@ -223,9 +223,9 @@ class Reservation extends React.Component {
     url: url,
     data: bodyObj,
     success: (data) => {
-      console.log('data', data)
+      // console.log('getListingInfo data', data);
     var parsedData = JSON.parse(data);
-    console.log('listingInfo GET success', parsedData)
+    // console.log('listingInfo GET success', parsedData);
     // var name = parsedData[0].listingName;
     var price = parsedData[0].pricePerNight;
     var maxGuests = parsedData[0].maxGuests;
@@ -256,7 +256,7 @@ getBookedDates (url, id) {
       // console.log('parsedData', parsedData);
       var checkIn = parsedData[0].checkIn;
       var checkOut = parsedData[0].checkOut;
-      console.log('getBookedDates', parsedData);
+      // console.log('getBookedDates', parsedData);
       var bookedDatesArray = iterateOverDataArray(parsedData);
       this.setState({
         bookedDates: bookedDatesArray
