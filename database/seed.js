@@ -290,5 +290,9 @@ let writeBookingInfoCSV = function(cb) {
   bookingsStream.end();
 };
 
+console.log('writing listingInfoCSV...');
 writeListingInfoCSV();
+console.log('done writing listingInfoCSV.');
+console.log('writing bookingsInfoCSV...');
 writeBookingInfoCSV();
+console.log('done writing bookingsInfoCSV.');
