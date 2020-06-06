@@ -287,7 +287,7 @@ let writeBookingInfoCSV = function(cb) {
       toFillBookingsTable(arrOfCalendarDays, currentListingId);
       let write = bookingsStream.write(bookingTableData);
       if (!write) {
-        console.log('draining...');
+        // console.log('draining...');
         bookingsStream.once('drain', writeBookingInfoCSV);
       } else {
         writeBookingInfoCSV();
