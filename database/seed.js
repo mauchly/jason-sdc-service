@@ -243,8 +243,10 @@ let writeListingInfoCSV = () => {
   for (let i = 0; i < 1000; i++) {
     if (i === 0) {
       toFillListingItemsTable(currentListingId);
+      console.log('currentListingId', currentListingId);
       let write = myWriteStream.write(listingTableData);
       if (!write) {
+        console.log('draining');
         myWriteStream.once('drain', writeListingInfoCSV);
       } else {
         writeListingInfoCSV();
@@ -253,6 +255,7 @@ let writeListingInfoCSV = () => {
       currentListingId+= 10000;
       listingTableData = '';
       toFillListingItemsTable(currentListingId)
+      console.log('currentListingId', currentListingId);
       let write = myWriteStream.write(listingTableData);
       if (!write) {
         myWriteStream.once('drain', writeListingInfoCSV);
@@ -294,9 +297,9 @@ let writeBookingInfoCSV = function(cb) {
   bookingsStream.end();
 };
 
-// console.log('writing listingInfoCSV...');
-// writeListingInfoCSV();
-// console.log('done writing listingInfoCSV.');
+console.log('writing listingInfoCSV...');
+writeListingInfoCSV();
+console.log('done writing listingInfoCSV.');
 console.log('writing bookingsInfoCSV...');
 writeBookingInfoCSV();
 console.log('done writing bookingsInfoCSV.');
