@@ -75,6 +75,7 @@ class Reservation extends React.Component {
     var urlOne = 'http://ec2-54-193-158-99.us-west-1.compute.amazonaws.com:3001/listingInfo';
     var windowUrlString = window.location.href;
     let searchedId = windowUrlString.split('/').pop();
+    console.log('searchedId', searchedId);
     if (searchedId < 1 || searchedId > 10000000) {
       listingId = 1
     } else {
