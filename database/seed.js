@@ -268,19 +268,23 @@ let writeBookingInfoCSV = function(cb) {
   for (let i = 0; i < 1000; i++) {
     if (i === 0) {
       currentListingId = 1;
+      console.log('currentListingId', currentListingId);
       toFillBookingsTable(arrOfCalendarDays, currentListingId);
       let write = bookingsStream.write(bookingTableData);
       if (!write) {
+        console.log('draining...');
         bookingsStream.once('drain', writeBookingInfoCSV);
       } else {
         writeBookingInfoCSV();
       }
     } else {
       currentListingId+= 10000;
+      console.log('currentListingId', currentListingId);
       bookingTableData = '';
       toFillBookingsTable(arrOfCalendarDays, currentListingId);
       let write = bookingsStream.write(bookingTableData);
       if (!write) {
+        console.log('draining...');
         bookingsStream.once('drain', writeBookingInfoCSV);
       } else {
         writeBookingInfoCSV();
@@ -290,9 +294,9 @@ let writeBookingInfoCSV = function(cb) {
   bookingsStream.end();
 };
 
-console.log('writing listingInfoCSV...');
-writeListingInfoCSV();
-console.log('done writing listingInfoCSV.');
+// console.log('writing listingInfoCSV...');
+// writeListingInfoCSV();
+// console.log('done writing listingInfoCSV.');
 console.log('writing bookingsInfoCSV...');
 writeBookingInfoCSV();
 console.log('done writing bookingsInfoCSV.');
