@@ -60,11 +60,11 @@ const getBookedDatesCache = (req, res, next) => {
 app.get('/listingInfo', listingInfoCache, (req, res) => {
   console.log('fetching listingInfo...');
   var reqId = req.query.listingId
-  // console.log('reqID', reqId);
+  console.log('reqID', reqId);
   getListingInfo(reqId)
   .then((results) => {
     let stringifyResults = JSON.stringify(results);
-    // console.log('RESULTS: ', results, 'STRINGIFIED RESULTS', stringifyResults);
+    console.log('RESULTS: ', results, 'STRINGIFIED RESULTS', stringifyResults);
     client.setex(`listingInfo${reqId}`, 86400, stringifyResults);
     res.status(200).end(stringifyResults);
   })
