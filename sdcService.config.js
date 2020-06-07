@@ -1,6 +1,6 @@
 module.exports = {
   apps : [{
-    name        : "sdc-api",
+    name        : "sdc-service-api",
     script      : "./server/index.js",
     watch       : true,
     env: {
@@ -11,7 +11,7 @@ module.exports = {
     }
   },
   {
-    name       : "sdc-client",
+    name       : "sdc-service-client",
     script     : "./client/dist/bundle.js",
     watch       : true,
     env: {
