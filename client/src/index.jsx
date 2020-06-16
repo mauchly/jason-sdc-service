@@ -81,7 +81,7 @@ class Reservation extends React.Component {
     } else {
       listingId = Number(searchedId);
     }
-    var reviewUrl = 'http://localhost:3004/averageScore' + listingId;
+    var reviewUrl = 'http://ec2-18-144-27-43.us-west-1.compute.amazonaws.com/averageScore' + listingId;
     console.log('reviewUrl', reviewUrl);
     this.getListingInfoFromServer(urlOne, listingId);
     this.getBookedDates('http://ec2-54-193-158-99.us-west-1.compute.amazonaws.com:3001/getBookedDates', listingId);
