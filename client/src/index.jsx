@@ -198,7 +198,7 @@ class Reservation extends React.Component {
      method: 'GET',
      url: endPoint,
      success: (results) => {
-       console.log('success results', results);
+       console.log('success results', typeof results);
        if (!Array.isArray(results)) {
          console.log('Could not get reviews, inserting hardcoded reviews...', err);
          this.setState({
