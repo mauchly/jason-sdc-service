@@ -200,7 +200,7 @@ class Reservation extends React.Component {
      success: (results) => {
        console.log('success results', typeof results);
        if (!Array.isArray(results)) {
-         console.log('Could not get reviews, inserting hardcoded reviews...', err);
+         console.log('Could not get reviews, inserting hardcoded reviews...');
          this.setState({
            reviews: ["5.00", " (100 reviews)"]
          });
