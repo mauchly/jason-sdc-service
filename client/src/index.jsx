@@ -198,6 +198,7 @@ class Reservation extends React.Component {
      method: 'GET',
      url: endPoint,
      success: (results) => {
+       console.log('success results', results);
        var removeComma = results.split(',');
       //  console.log('removeComma', removeComma);
        this.setState({
