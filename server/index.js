@@ -142,9 +142,9 @@ app.get('/:id', (req, res) => {
   res.sendFile(fullPath);
 });
 
-app.get('/loaderio-4deae93abd54e337b154b38197381d25', (req, res) => {
-  res.send(loaderioFile);
-});
+// app.get('/loaderio-4deae93abd54e337b154b38197381d25', (req, res) => {
+//   res.send(loaderioFile);
+// });
 
 app.listen(PORT, () => {
   console.log(`server listening at ${PORT}`)
