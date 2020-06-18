@@ -136,10 +136,10 @@ app.get('/getBookedDates', getBookedDatesCache, (req, res) => {
 });
 
 
-app.get('/loaderio-4deae93abd54e337b154b38197381d25', (req, res) => {
-  console.log('here: ', loaderioFile);
-  res.status(200).end(loaderioFile);
-});
+// app.get('/loaderio-4deae93abd54e337b154b38197381d25', (req, res) => {
+//   console.log('here: ', loaderioFile);
+//   res.status(200).end(loaderioFile);
+// });
 
 app.get('/:id', (req, res) => {
   // Gives listingId back to client when page first renders
