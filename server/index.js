@@ -8,13 +8,13 @@ const Path = require('path');
 const { connection, getListingInfo, getBookedDates, createListingInfo, updateListingInfo, deleteListing } = require ('../database/controllers/controllers.js');
 const fs = require('fs');
 const fullPath = '/home/ubuntu/jason-sdc-service/client/dist/index.html';
-const redis = require('redis');
-const REDIS_PORT = process.env.PORT || 6379;
-const client = redis.createClient(REDIS_PORT);
-
-client.on('error', (err) => {
-  console.log('error, ', err);
-});
+// const redis = require('redis');
+// const REDIS_PORT = process.env.PORT || 6379;
+// const client = redis.createClient(REDIS_PORT);
+//
+// client.on('error', (err) => {
+//   console.log('error, ', err);
+// });
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
@@ -27,37 +27,37 @@ app.use(function(req, res, next) {
   next();
 });
 
-const listingInfoCache = (req, res, next) => {
-  let { listingId } = req.query;
-  client.get(`listingInfo${listingId}`, (err, results) => {
-    if (err) {
-      console.log('error', err);
-    }
-    if (results !== null) {
-      console.log('serving cached listingInfo data...');
-      res.status(200).end(results);
-    } else {
-      next();
-    }
-  });
-};
+// const listingInfoCache = (req, res, next) => {
+//   let { listingId } = req.query;
+//   client.get(`listingInfo${listingId}`, (err, results) => {
+//     if (err) {
+//       console.log('error', err);
+//     }
+//     if (results !== null) {
+//       console.log('serving cached listingInfo data...');
+//       res.status(200).end(results);
+//     } else {
+//       next();
+//     }
+//   });
+// };
 
-const getBookedDatesCache = (req, res, next) => {
-  let { listingId } = req.query;
-  client.get(`getBookedDates${listingId}`, (err, results) => {
-    if (err) {
-      console.log('error', err);
-    }
-    if (results !== null) {
-      console.log('serving cached getBookedDates data...');
-      res.status(200).end(results);
-    } else {
-      next();
-    }
-  });
-};
+// const getBookedDatesCache = (req, res, next) => {
+//   let { listingId } = req.query;
+//   client.get(`getBookedDates${listingId}`, (err, results) => {
+//     if (err) {
+//       console.log('error', err);
+//     }
+//     if (results !== null) {
+//       console.log('serving cached getBookedDates data...');
+//       res.status(200).end(results);
+//     } else {
+//       next();
+//     }
+//   });
+// };
 
-app.get('/listingInfo', listingInfoCache, (req, res) => {
+app.get('/listingInfo', (req, res) => {
   console.log('fetching listingInfo...');
   var reqId = req.query.listingId
   // console.log('reqID', reqId);
@@ -117,7 +117,7 @@ app.delete('/listingInfo', (req, res) => {
   });
 });
 
-app.get('/getBookedDates', getBookedDatesCache, (req, res) => {
+app.get('/getBookedDates', (req, res) => {
   console.log('fetching booked dates...');
   var listingId = req.query.listingId;
   // console.log('listingId', listingId);
