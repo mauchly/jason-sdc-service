@@ -200,23 +200,23 @@ class Reservation extends React.Component {
      success: (results) => {
        console.log('success results', results);
        if (!Array.isArray(results)) {
-        console.log('Could not get reviews, inserting hardcoded reviews...', err);
-       this.setState({
-        reviews: ["5.00", " (100 reviews)"]
-      });
+         console.log('Could not get reviews, inserting hardcoded reviews...', err);
+         this.setState({
+           reviews: ["5.00", " (100 reviews)"]
+         });
        } else {
-       var removeComma = results.split(',');
-      //  console.log('removeComma', removeComma);
-       this.setState({
-         reviews: removeComma
-       });
-      }
+         var removeComma = results.split(',');
+         // console.log('removeComma', removeComma);
+         this.setState({
+           reviews: removeComma
+         });
+       }
      },
      error: (err) => {
        console.log('Could not get reviews, inserting hardcoded reviews...', err);
        this.setState({
-        reviews: ["5.00", " (100 reviews)"]
-      });
+         reviews: ["5.00", " (100 reviews)"]
+       });
      }
    });
  };
