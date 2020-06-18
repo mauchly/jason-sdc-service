@@ -11,6 +11,7 @@ const fullPath = '/home/ubuntu/jason-sdc-service/client/dist/index.html';
 const redis = require('redis');
 const REDIS_PORT = process.env.PORT || 6379;
 const client = redis.createClient(REDIS_PORT);
+const loaderioFile = require('../loaderio-4deae93abd54e337b154b38197381d25.txt');
 
 client.on('error', (err) => {
   console.log('error, ', err);
@@ -139,6 +140,11 @@ app.get('/:id', (req, res) => {
   // Gives listingId back to client when page first renders
   // console.log('from /:id', req.url);
   res.sendFile(fullPath);
+});
+
+app.get('/loaderio-4deae93abd54e337b154b38197381d25', (req, res) => {
+  console.log('here: ', loaderioFile);
+  res.status(200).end(loaderioFile);
 });
 
 app.listen(PORT, () => {
