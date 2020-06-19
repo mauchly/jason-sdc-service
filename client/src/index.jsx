@@ -35,7 +35,7 @@ class Reservation extends React.Component {
       guests: 1,
       numOfChildren: 0,
       numOfInfants:0,
-      reviews: '',
+      reviews: ["5.00", " (100 reviews)"],
       msgUnderReserveButton: 'You won\'t be charged yet.',
       newBookedDateRange: [],
       guestsWord: 'Guest'
