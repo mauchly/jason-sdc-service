@@ -205,8 +205,9 @@ class Reservation extends React.Component {
            reviews: ["5.00", " (100 reviews)"]
          });
        } else {
+         console.log('results', results);
          var removeComma = results.split(',');
-         // console.log('removeComma', removeComma);
+         console.log('removeComma', removeComma);
          this.setState({
            reviews: removeComma
          });
