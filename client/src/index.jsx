@@ -35,7 +35,7 @@ class Reservation extends React.Component {
       guests: 1,
       numOfChildren: 0,
       numOfInfants:0,
-      reviews: ["5.00", " (100 reviews)"],
+      reviews: ["4.00", " (40 reviews)"],
       msgUnderReserveButton: 'You won\'t be charged yet.',
       newBookedDateRange: [],
       guestsWord: 'Guest'
@@ -194,10 +194,20 @@ class Reservation extends React.Component {
  };
 
  getReviews(endPoint) {
+   console.log('getting reviews...');
+   let stillLoading = true;
+   let set = setInterval(() => {
+     if (stillLoading) {
+       console.log('still loading reviews...');
+     }
+   }, 5000);
+   set();
    $.ajax({
      method: 'GET',
      url: endPoint,
      success: (results) => {
+       stillLoading = false;
+       clearInterval(set);
        console.log('success results', typeof results);
        if (!Array.isArray(results)) {
          console.log('Could not get reviews, inserting hardcoded reviews...');
@@ -214,6 +224,8 @@ class Reservation extends React.Component {
        }
      },
      error: (err) => {
+      stillLoading = false;
+      clearInterval(set);
        console.log('Could not get reviews, inserting hardcoded reviews...', err);
        this.setState({
          reviews: ["5.00", " (100 reviews)"]
