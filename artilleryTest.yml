@@ -29,7 +29,7 @@ scenarios:
     #           id: "{{ listingId }}"
     #           listingId: "{{ listingId }}"
     #           pricePerNight: "{{ pricePerNight }}"
-    #           weeked: "{{ weekend }}"
+    #           weekend: "{{ weekend }}"
     #           weekendPrice: "{{ weekendPrice }}"
     #           maxGuests: "{{ maxGuests }}"
     #           tax: "{{ tax }}"
