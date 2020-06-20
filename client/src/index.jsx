@@ -201,7 +201,6 @@ class Reservation extends React.Component {
        console.log('still loading reviews...');
      }
    }, 5000);
-   set();
    $.ajax({
      method: 'GET',
      url: endPoint,
