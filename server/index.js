@@ -16,6 +16,11 @@ const fullPath = '/home/ubuntu/jason-sdc-service/client/dist/index.html';
 //   console.log('error, ', err);
 // });
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
+
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
   extended: true
