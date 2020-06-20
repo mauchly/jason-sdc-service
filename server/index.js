@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 3001;
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const Path = require('path');
-const compression = require('compression');
+// const compression = require('compression');
 const { connection, getListingInfo, getBookedDates, createListingInfo, updateListingInfo, deleteListing } = require ('../database/controllers/controllers.js');
 const fs = require('fs');
 const fullPath = '/home/ubuntu/jason-sdc-service/client/dist/index.html';
@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json());
-app.use(compression());
+// app.use(compression());
 app.use(express.static(Path.join(__dirname, '/../client/dist')));
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
