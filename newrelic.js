@@ -9,11 +9,11 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name: ['sdc_airbnb_reservation_service'],
+  app_name: ['Nginx-sdc'],
   /**
    * Your New Relic license key.
    */
-  license_key: '5eac8c485d4a614efc4b29018e9482f0cca5NRAL',
+  license_key: 'f1b8e6e18cee8d0093d0736c51018383c285NRAL',
   logging: {
     /**
      * Level at which to log. 'trace' is most useful to New Relic when diagnosing
