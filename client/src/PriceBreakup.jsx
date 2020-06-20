@@ -1,5 +1,4 @@
-import React from 'react'
-
+// import React from 'react';
 var PriceBreakup = (props) => {
 var price = props.price;
 var numOfNights = props.numOfNights;

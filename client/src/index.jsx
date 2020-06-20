@@ -1,11 +1,11 @@
 // import React from 'react';
 // import ReactDOM from 'react-dom';
+// import $ from 'jquery';
+// import '../dist/style.css';
 import CalendarBoard from './CalendarBoard.jsx';
 import GuestsDisplay from  './GuestsDisplay.jsx';
 import PriceBreakup from './PriceBreakup.jsx';
 import { getMonthDays, getFullYear, getMonthFirstDay, createMonth, getMonth, iterateOverDataArray, calculateNumOfNights, getDatesRange } from './helperFunc.js';
-import $ from 'jquery';
-import '../dist/style.css'
 
 
 class Reservation extends React.Component {

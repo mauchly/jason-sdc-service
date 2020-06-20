@@ -1,6 +1,3 @@
-
-
-
 const zeroPad = (value, length) => {
   return `${value}`.padStart(length, '0');
 }
