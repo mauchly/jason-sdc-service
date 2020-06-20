@@ -12,7 +12,7 @@ module.exports = {
   },
   {
     name       : "sdc-service-client",
-    script     : "webpack -d --watch",
+    script     : "./client/dist/bundle.js",
     watch       : true,
     env: {
       "NODE_ENV": "development",
