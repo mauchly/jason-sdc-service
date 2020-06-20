@@ -1,6 +1,7 @@
 var path = require('path');
 var SRC_DIR = path.join(__dirname, '/client/src');
 var DIST_DIR = path.join(__dirname, '/client/dist');
+const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
   entry: `${SRC_DIR}/renderApp.jsx`,
@@ -8,7 +9,7 @@ module.exports = {
     filename: 'bundle.js',
     path: DIST_DIR
   },
-  module : {
+  module: {
     rules : [
       {
         test: /\.css$/,
@@ -28,5 +29,8 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new CompressionPlugin()
+  ]
 };
