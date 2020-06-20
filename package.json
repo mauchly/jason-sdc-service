@@ -38,17 +38,18 @@
     "superagent": "^5.2.2"
   },
   "devDependencies": {
-    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
     "@babel/core": "^7.8.4",
+    "@babel/plugin-transform-modules-commonjs": "^7.9.0",
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
     "babel-loader": "^8.0.6",
-    "webpack": "^4.41.6",
-    "webpack-cli": "^3.3.11",
+    "compression": "^1.7.4",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
-    "@babel/plugin-transform-modules-commonjs": "^7.9.0",
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
     "jest": "^25.2.3",
-    "supertest": "^4.0.2"
+    "supertest": "^4.0.2",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11"
   }
 }
