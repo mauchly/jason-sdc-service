@@ -140,9 +140,8 @@ app.get('/getBookedDates', (req, res) => {
 });
 
 
-app.get('/loaderio-4deae93abd54e337b154b38197381d25', (req, res) => {
-  console.log('here: ');
-  res.status(200).sendFile(Path.join(__dirname, '../loaderio-4deae93abd54e337b154b38197381d25.txt'));
+app.get('/loaderio-2c4786fd9fd09233b34071055f00073c', (req, res) => {
+  res.status(200).sendFile(Path.join(__dirname, '../loaderio-2c4786fd9fd09233b34071055f00073c.txt'));
 });
 
 app.get('/:id', (req, res) => {
