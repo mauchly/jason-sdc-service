@@ -1,4 +1,5 @@
 require('newrelic');
+const expressStaticGzip = require("express-static-gzip");
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -21,18 +22,26 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('*.js', (req, res, next) => {
-  req.url = req.url + '.gz';
-  res.set('Content-Encoding', 'gzip');
-  next();
-});
+// app.get('*.js', (req, res, next) => {
+//   req.url = req.url + '.gz';
+//   res.set('Content-Encoding', 'gzip');
+//   next();
+// });
 
-app.get('*.js', (req, res, next) => {
-  req.url = req.url + '.br';
-  res.set('Content-Encoding', 'br');
-  res.set('Content-Type', 'application/javascript; charset=UTF-8');
-  next();
-});
+// app.get('*.js', (req, res, next) => {
+//   req.url = req.url + '.br';
+//   res.set('Content-Encoding', 'br');
+//   res.set('Content-Type', 'application/javascript; charset=UTF-8');
+//   next();
+// });
+
+app.use('/build/client', expressStaticGzip('build/client', {
+  enableBrotli: true,
+  orderPreference: ['br', 'gz'],
+  setHeaders: function (res, path) {
+     res.setHeader("Cache-Control", "public, max-age=31536000");
+  }
+}));
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({

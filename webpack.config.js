@@ -1,7 +1,7 @@
 var path = require('path');
 var SRC_DIR = path.join(__dirname, '/client/src');
 var DIST_DIR = path.join(__dirname, '/client/dist');
-const CompressionPlugin = require("compression-webpack-plugin");
+const CompressionPlugin = require('compression-webpack-plugin');
 var BrotliPlugin = require('brotli-webpack-plugin');
 
 module.exports = {
@@ -32,10 +32,18 @@ module.exports = {
     ]
   },
   plugins: [
-    new CompressionPlugin(),
+    new CompressionPlugin({
+      asset: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.7
+      }),
     new BrotliPlugin({
-      asset: 'bundle.js.br',
-      test: /\.(js)$/
-    })
+      asset: '[path].br[query]',
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.7
+      })
   ]
 };
