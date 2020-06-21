@@ -2,6 +2,7 @@ var path = require('path');
 var SRC_DIR = path.join(__dirname, '/client/src');
 var DIST_DIR = path.join(__dirname, '/client/dist');
 const CompressionPlugin = require("compression-webpack-plugin");
+var BrotliPlugin = require('brotli-webpack-plugin');
 
 module.exports = {
   entry: `${SRC_DIR}/renderApp.jsx`,
@@ -31,6 +32,10 @@ module.exports = {
     ]
   },
   plugins: [
-    new CompressionPlugin()
+    new CompressionPlugin(),
+    new BrotliPlugin({
+      asset: 'bundle.js.br',
+      test: /\.(js)$/
+    })
   ]
 };
