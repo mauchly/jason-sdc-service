@@ -47,7 +47,7 @@ app.use(function(req, res, next) {
 
 const listingInfoCache = (req, res, next) => {
   let { listingId } = req.query;
-  client.get(`listingInfo${listingId}`, (err, results) => {
+  client.get(listingId, (err, results) => {
     if (err) {
       console.log('error', err);
     }
@@ -62,7 +62,7 @@ const listingInfoCache = (req, res, next) => {
 
 const getBookedDatesCache = (req, res, next) => {
   let { listingId } = req.query;
-  client.get(`getBookedDates${listingId}`, (err, results) => {
+  client.get(listingId, (err, results) => {
     if (err) {
       console.log('error', err);
     }
