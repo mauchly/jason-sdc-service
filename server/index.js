@@ -78,7 +78,7 @@ const getBookedDatesCache = (req, res, next) => {
 app.get('/listingInfo', listingInfoCache, (req, res) => {
   console.log('fetching listingInfo...');
   var reqId = req.query.listingId
-  // console.log('reqID', reqId);
+  console.log('reqID', reqId);
   getListingInfo(reqId)
   .then((results) => {
     let stringifyResults = JSON.stringify(results);
