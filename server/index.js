@@ -53,7 +53,7 @@ const listingInfoCache = (req, res, next) => {
     }
     if (results !== null) {
       console.log('cache listingInfo, ', listingId);
-      res.status(201).end(results);
+      res.status(200).end(results);
     } else {
       next();
     }
