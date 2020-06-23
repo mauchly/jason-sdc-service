@@ -1,5 +1,5 @@
-// import React from 'react';
-// import ReactDOM from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
 // import $ from 'jquery';
 // import '../dist/style.css';
 import CalendarBoard from './CalendarBoard.jsx';

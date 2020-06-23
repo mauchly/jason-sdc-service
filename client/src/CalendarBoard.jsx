@@ -1,4 +1,4 @@
-// import React from 'react';
+import React from 'react';
 import WeekRow from './WeekRow.jsx';
 //import createMonth from './help.js'
 
