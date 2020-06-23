@@ -10,7 +10,7 @@ const getListingInfo = (listingId) => {
       resolve(results);
     })
     .catch((err) => {
-      console.log('error', err)
+      console.log('error', err);
       reject(err);
     });
   });

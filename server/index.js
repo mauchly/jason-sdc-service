@@ -53,7 +53,7 @@ const listingInfoCache = (req, res, next) => {
     }
     if (results !== null) {
       console.log('serving cached listingInfo data...');
-      res.status(200).end(results);
+      res.status(201).end(results);
     } else {
       next();
     }
@@ -68,7 +68,7 @@ const getBookedDatesCache = (req, res, next) => {
     }
     if (results !== null) {
       console.log('serving cached getBookedDates data...');
-      res.status(200).end(results);
+      res.status(201).end(results);
     } else {
       next();
     }
