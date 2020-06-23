@@ -47,7 +47,7 @@ app.use(function(req, res, next) {
 
 const listingInfoCache = (req, res, next) => {
   let { listingId } = req.query;
-  client.get(`listingInfo${listingId}`, (err, results) => {
+  client.get(listingId, (err, results) => {
     if (err) {
       console.log('error', err);
     }
@@ -62,7 +62,7 @@ const listingInfoCache = (req, res, next) => {
 
 const getBookedDatesCache = (req, res, next) => {
   let { listingId } = req.query;
-  client.get(`getBookedDates${listingId}`, (err, results) => {
+  client.get(listingId, (err, results) => {
     if (err) {
       console.log('error', err);
     }
@@ -82,8 +82,8 @@ app.get('/listingInfo', listingInfoCache, (req, res) => {
   getListingInfo(reqId)
   .then((results) => {
     let stringifyResults = JSON.stringify(results);
-    // console.log('RESULTS: ', results, 'STRINGIFIED RESULTS', stringifyResults);
-    client.setex(`listingInfo${reqId}`, 86400, stringifyResults);
+    console.log('RESULTS: ', results, 'STRINGIFIED RESULTS', stringifyResults);
+    client.setex(reqId, 86400, stringifyResults);
     res.status(200).end(stringifyResults);
   })
   .catch((err) => {
@@ -141,9 +141,9 @@ app.get('/getBookedDates', getBookedDatesCache, (req, res) => {
   // console.log('listingId', listingId);
   getBookedDates(listingId)
   .then((results) => {
-    // console.log('getBookedDates results', results);
+    console.log('getBookedDates results', results);
     var stringifyResults = JSON.stringify(results);
-    client.setex(`getBookedDates${listingId}`, 86400, stringifyResults);
+    client.setex(listingId, 86400, stringifyResults);
     res.status(200).end(stringifyResults);
   })
   .catch((err) => {
