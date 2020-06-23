@@ -84,8 +84,10 @@ app.get('/listingInfo', listingInfoCache, (req, res) => {
     console.log('reqId', reqId);
     let stringifyResults = JSON.stringify(results);
     // console.log('RESULTS: ', results, 'STRINGIFIED RESULTS', stringifyResults);
-    client.setex(reqId, 86400, stringifyResults);
-    res.status(200).end(stringifyResults);
+    client.setex(reqId, 86400, stringifyResults)
+    .then(() => {
+      res.status(200).end(stringifyResults);
+    })
   })
   .catch((err) => {
     res.status(404).end('NOT FOUND');
@@ -145,8 +147,10 @@ app.get('/getBookedDates', getBookedDatesCache, (req, res) => {
     // console.log('getBookedDates results', results);
     console.log('listingId', listingId);
     var stringifyResults = JSON.stringify(results);
-    client.setex(listingId, 86400, stringifyResults);
-    res.status(200).end(stringifyResults);
+    client.setex(listingId, 86400, stringifyResults)
+    .then(() => {
+      res.status(200).end(stringifyResults);
+    })
   })
   .catch((err) => {
     console.log('getBookedDates error', err);
