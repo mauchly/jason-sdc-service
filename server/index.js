@@ -47,12 +47,12 @@ app.use(function(req, res, next) {
 
 const listingInfoCache = (req, res, next) => {
   let { listingId } = req.query;
-  client.get(listingId, (err, results) => {
+  client.get(`listingInfo${listingId}`, (err, results) => {
     if (err) {
       console.log('error', err);
     }
     if (results !== null) {
-      console.log('cache listingInfo, ', listingId);
+      console.log('serving cached listingInfo data...');
       res.status(200).end(results);
     } else {
       next();
@@ -62,13 +62,13 @@ const listingInfoCache = (req, res, next) => {
 
 const getBookedDatesCache = (req, res, next) => {
   let { listingId } = req.query;
-  client.get(listingId, (err, results) => {
+  client.get(`getBookedDates${listingId}`, (err, results) => {
     if (err) {
       console.log('error', err);
     }
     if (results !== null) {
       console.log('serving cached getBookedDates data...');
-      res.status(201).end(results);
+      res.status(200).end(results);
     } else {
       next();
     }
@@ -78,12 +78,12 @@ const getBookedDatesCache = (req, res, next) => {
 app.get('/listingInfo', listingInfoCache, (req, res) => {
   console.log('fetching listingInfo...');
   var reqId = req.query.listingId
-  // console.log('reqID', reqId);
+  console.log('reqID', reqId);
   getListingInfo(reqId)
   .then((results) => {
     let stringifyResults = JSON.stringify(results);
     // console.log('RESULTS: ', results, 'STRINGIFIED RESULTS', stringifyResults);
-    client.setex(listingInfo, 86400, stringifyResults);
+    client.setex(`listingInfo${reqId}`, 86400, stringifyResults);
     res.status(200).end(stringifyResults);
   })
   .catch((err) => {
@@ -143,7 +143,7 @@ app.get('/getBookedDates', getBookedDatesCache, (req, res) => {
   .then((results) => {
     // console.log('getBookedDates results', results);
     var stringifyResults = JSON.stringify(results);
-    client.setex(listingId, 86400, stringifyResults);
+    client.setex(`getBookedDates${listingId}`, 86400, stringifyResults);
     res.status(200).end(stringifyResults);
   })
   .catch((err) => {
