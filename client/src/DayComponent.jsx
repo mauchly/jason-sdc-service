@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import { zeroPadding } from './helperFunc.js'
 
 var DayComponent = (props) => {
