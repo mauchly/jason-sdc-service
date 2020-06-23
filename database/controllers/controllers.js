@@ -2,11 +2,11 @@ const db = require('../index.js');
 const { ListingItems, Bookings } = require('../models/models.js');
 
 const getListingInfo = (listingId) => {
-  console.log('listingId', listingId);
+  // console.log('listingId', listingId);
   return new Promise((resolve, reject) => {
     ListingItems.find({id: listingId})
     .then((results) => {
-      console.log('results', results);
+      // console.log('results', results);
       resolve(results);
     })
     .catch((err) => {
