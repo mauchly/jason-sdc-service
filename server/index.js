@@ -155,8 +155,8 @@ app.get('/getBookedDates', getBookedDatesCache, (req, res) => {
 });
 
 
-app.get('/loaderio-2c4786fd9fd09233b34071055f00073c', (req, res) => {
-  res.status(200).sendFile(Path.join(__dirname, '../loaderio-2c4786fd9fd09233b34071055f00073c.txt'));
+app.get('/loaderio-c6d2bb4baa3afd72d792938f30ecc9c6', (req, res) => {
+  res.status(200).sendFile(Path.join(__dirname, '../loaderio-c6d2bb4baa3afd72d792938f30ecc9c6.txt'));
 });
 
 app.get('/:id', (req, res) => {
