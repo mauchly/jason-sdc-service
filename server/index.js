@@ -18,6 +18,9 @@ client.on('error', (err) => {
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Credentials', true);
   next();
 });
 
@@ -27,11 +30,6 @@ app.get('*.js', (req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   next();
 });
-
-//res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
-//res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-//res.header('Access-Control-Allow-Credentials', true);
-//return next();
 
 app.get('*.js', (req, res, next) => {
   req.url = req.url + '.br';
