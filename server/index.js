@@ -21,18 +21,20 @@ app.use(function(req, res, next) {
   next();
 });
 
-// app.get('*.js', (req, res, next) => {
-//   req.url = req.url + '.gz';
-//   res.set('Content-Encoding', 'gzip');
-//   next();
-// });
+app.get('*.js', (req, res, next) => {
+  req.url = req.url + '.gz';
+  res.set('Content-Encoding', 'gzip');
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
 
-// app.get('*.js', (req, res, next) => {
-//   req.url = req.url + '.br';
-//   res.set('Content-Encoding', 'br');
-//   res.set('Content-Type', 'application/javascript; charset=UTF-8');
-//   next();
-// });
+app.get('*.js', (req, res, next) => {
+  req.url = req.url + '.br';
+  res.set('Content-Encoding', 'br');
+  res.set('Content-Type', 'application/javascript; charset=UTF-8');
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
