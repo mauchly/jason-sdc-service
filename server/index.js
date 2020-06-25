@@ -21,20 +21,20 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('*.js', (req, res, next) => {
-  req.url = req.url + '.gz';
-  res.set('Content-Encoding', 'gzip');
-  res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
-  next();
-});
+// app.get('*.js', (req, res, next) => {
+//   req.url = req.url + '.gz';
+//   res.set('Content-Encoding', 'gzip');
+//   res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+//   next();
+// });
 
-app.get('*.js', (req, res, next) => {
-  req.url = req.url + '.br';
-  res.set('Content-Encoding', 'br');
-  res.set('Content-Type', 'application/javascript; charset=UTF-8');
-  res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
-  next();
-});
+// app.get('*.js', (req, res, next) => {
+//   req.url = req.url + '.br';
+//   res.set('Content-Encoding', 'br');
+//   res.set('Content-Type', 'application/javascript; charset=UTF-8');
+//   res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+//   next();
+// });
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
@@ -42,10 +42,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 app.use(express.static(Path.join(__dirname, '/../client/dist')));
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  next();
-});
+
 
 const listingInfoCache = (req, res, next) => {
   let { listingId } = req.query;
