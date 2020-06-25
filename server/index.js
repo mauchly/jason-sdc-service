@@ -24,15 +24,20 @@ app.use(function(req, res, next) {
 app.get('*.js', (req, res, next) => {
   req.url = req.url + '.gz';
   res.set('Content-Encoding', 'gzip');
-  res.header("Access-Control-Allow-Origin", "*");
+  res.setHeader('Access-Control-Allow-Origin', '*');
   next();
 });
+
+//res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
+//res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//res.header('Access-Control-Allow-Credentials', true);
+//return next();
 
 app.get('*.js', (req, res, next) => {
   req.url = req.url + '.br';
   res.set('Content-Encoding', 'br');
   res.set('Content-Type', 'application/javascript; charset=UTF-8');
-  res.header("Access-Control-Allow-Origin", "*");
+  res.setHeader('Access-Control-Allow-Origin', '*');
   next();
 });
 
