@@ -82,7 +82,7 @@ class Reservation extends React.Component {
       listingId = Number(searchedId);
     }
     var reviewUrl = 'http://ec2-3-101-33-236.us-west-1.compute.amazonaws.com/averageScore/' + listingId;
-    console.log('reviewUrl', reviewUrl);
+    // console.log('reviewUrl', reviewUrl);
     this.getListingInfoFromServer(urlOne, listingId);
     this.getBookedDates('http://ec2-52-53-179-46.us-west-1.compute.amazonaws.com/getBookedDates', listingId);
     this.getReviews(reviewUrl);
@@ -194,7 +194,7 @@ class Reservation extends React.Component {
  };
 
  getReviews(endPoint) {
-   console.log('getting reviews...');
+  //  console.log('getting reviews...');
    let stillLoading = true;
    let set = setInterval(() => {
      if (stillLoading) {
@@ -214,7 +214,7 @@ class Reservation extends React.Component {
            reviews: ["5.00", "(100 reviews)"]
          });
        } else {
-         console.log('results', results);
+        //  console.log('results', results);
         //  var removeComma = results.split(',');
         //  console.log('removeComma', removeComma);
          this.setState({
