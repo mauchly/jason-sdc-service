@@ -83,7 +83,7 @@ app.get('/listingInfo', (req, res) => {
     // console.log('reqId', reqId);
     let stringifyResults = JSON.stringify(results);
     // console.log('RESULTS: ', results, 'STRINGIFIED RESULTS', stringifyResults);
-    client.setex(`listingInfo${reqId}`, 86400, stringifyResults);
+    // client.setex(`listingInfo${reqId}`, 86400, stringifyResults);
     res.status(200).end(stringifyResults);
   })
   .catch((err) => {
@@ -144,7 +144,7 @@ app.get('/getBookedDates', (req, res) => {
     // console.log('getBookedDates results', results);
     console.log('listingId', listingId);
     var stringifyResults = JSON.stringify(results);
-    client.setex(`getBookedDates${listingId}`, 86400, stringifyResults);
+    // client.setex(`getBookedDates${listingId}`, 86400, stringifyResults);
     res.status(200).end(stringifyResults);
   })
   .catch((err) => {
