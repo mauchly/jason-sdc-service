@@ -51,7 +51,7 @@ const listingInfoCache = (req, res, next) => {
       console.log('error', err);
     }
     if (results !== null) {
-      // console.log('serving cached listingInfo data...');
+      console.log('serving cached listingInfo data...');
       res.status(200).end(results);
     } else {
       next();
@@ -66,7 +66,7 @@ const getBookedDatesCache = (req, res, next) => {
       console.log('error', err);
     }
     if (results !== null) {
-      // console.log('serving cached getBookedDates data...');
+      console.log('serving cached getBookedDates data...');
       res.status(200).end(results);
     } else {
       next();
@@ -75,7 +75,7 @@ const getBookedDatesCache = (req, res, next) => {
 };
 
 app.get('/listingInfo', listingInfoCache, (req, res) => {
-  // console.log('fetching listingInfo...');
+  console.log('fetching listingInfo...');
   var reqId = req.query.listingId
   console.log('reqID', reqId);
   getListingInfo(reqId)
@@ -136,7 +136,7 @@ app.delete('/listingInfo', (req, res) => {
 });
 
 app.get('/getBookedDates', getBookedDatesCache, (req, res) => {
-  // console.log('fetching booked dates...');
+  console.log('fetching booked dates...');
   var listingId = req.query.listingId;
   // console.log('listingId', listingId);
   getBookedDates(listingId)
