@@ -215,10 +215,10 @@ class Reservation extends React.Component {
          });
        } else {
          console.log('results', results);
-         var removeComma = results.split(',');
-         console.log('removeComma', removeComma);
+        //  var removeComma = results.split(',');
+        //  console.log('removeComma', removeComma);
          this.setState({
-           reviews: removeComma
+           reviews: results
          });
        }
      },
