@@ -10,7 +10,7 @@ Airbnb Reservations Component Mockup
 
 ## Introduction
 
-> This project is a mock Reservations Service. Its purpose was to be integrated via a reverse proxy server with three other services that as a whole make up an entire mock Airbnb listings page. The main purpose of this project was to stress test our individual services and our app as a whole in order to assure it could operate with large amounts of stored data (70M records) under high usage circumstances (1000-10000 rps).
+> This project is a mock Reservations Service. Its purpose was to be integrated via a reverse proxy server with three other services that as a whole make up an entire mock Airbnb listings page. The main purpose of this project was to stress test our individual services and our app as a whole in order to assure it could operate with large amounts of stored data (70M records) under high usage circumstances (10000 rps).
 
 I first created 10 million listing records (which can all be viewed in the browser at localhost:{PORT}/listing/{LISTINGID}) and inserted them into a Postgres database. Each listing record had 6 bookings records, so 60 million more records were generated and stored as well, totaling 70 million records. We were to stress test our service independently and our combined services running as one in our proxy server and make improvements in order to reach at least 10000 requests per second.
 
