@@ -79,7 +79,7 @@ Including my service, there are a total of four services intergrated together in
 - SuperTest
 - Faker
 - Brotli
-- npm
+- Npm
 
 ## CRUD
 
