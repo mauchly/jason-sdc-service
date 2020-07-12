@@ -29,25 +29,35 @@ Including my service, there are a total of four services intergrated together in
 ## Usage
 
 ### npm install
-  - Install dependencies in a local node_modules directory
+  Install the dependencies in a local node_modules folder
+
+### mongo
+  Enter into Mongo shell
+
+> ### use reservation_service
+>  Create database and enter into it
+> ### db.createCollection('listingitems');
+>  Create listingitems collection
+> ### db.createCollection('bookings');
+>  Create bookings collection
+> ### CTL+C
+>  Exit Mongo shell
 
 ### npm run create-data
-  - Create CSV files and import data for 10M unique listings
+  - Create two CSV files w/ 10M unique listing records (and 60M supporting bookings records)
 
 ### mongoimport --type csv -d reservation_service -c listingitems --headerline --drop listingInfoCSV
- - Import listingInfoCSV file into listingitems collection in MongoDB reservation_service database
+  Seed the listingitems collection in the reservation_service database
 
 ### mongoimport --type csv -d reservation_service -c bookings --headerline --drop bookingsInfoCSV
- - Import bookingsInfoCSV file into bookings collection in MongoDB reservation_service database
+  Seed the bookings collection in the reservation_service database
 
 ### npm run react
-  - Builds out app in production mode, will make new bundle.js on each iteration
+  Correctly bundles the React app in production mode and optimizes the build for the best performance. Builds app into a bundle.js file in the public folder.
 
 ### npm run start
-  - Runs development server in nodemon to see changes made
-
-### npm run test
-  - Runs Jest tests
+  Runs the app in the development mode.
+  Open http://localhost:3002 to view it in the browser.
 
 ## Tech Stack
 
