@@ -9,7 +9,7 @@
 1. [Usage](#Usage)
 1. [Tech Stack](#Tech-Stack)
 1. [CRUD](#CRUD)
-1. [Engineering Journal](#Engineering Journal)
+1. [Engineering Journal](#Engineering-Journal)
 1. [Copyright and License](#Copyright-and-License)
 
 ## Introduction
@@ -34,17 +34,17 @@ Including my service, there are a total of four services intergrated together in
 ### mongo
   Enter into Mongo shell
 
-> ### use reservation_service
->  Create database and enter into it
-> ### db.createCollection('listingitems');
->  Create listingitems collection
-> ### db.createCollection('bookings');
->  Create bookings collection
-> ### CTL+C
->  Exit Mongo shell
+- ### use reservation_service
+  Create database and enter into it
+- ### db.createCollection('listingitems');
+  Create listingitems collection
+- ### db.createCollection('bookings');
+  Create bookings collection
+- ### CTL+C
+  Exit Mongo shell
 
 ### npm run create-data
-  - Create two CSV files w/ 10M unique listing records (and 60M supporting bookings records)
+  Create two CSV files w/ 10M unique listing records (and 60M supporting bookings records)
 
 ### mongoimport --type csv -d reservation_service -c listingitems --headerline --drop listingInfoCSV
   Seed the listingitems collection in the reservation_service database
