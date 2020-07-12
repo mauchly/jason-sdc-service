@@ -75,7 +75,7 @@ Including my service, there are a total of four services intergrated together in
 - Webpack
 - Babel
 - Jest
-- Enzynme
+- Enzyme
 - SuperTest
 - Faker
 - Brotli
