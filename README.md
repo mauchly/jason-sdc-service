@@ -34,14 +34,14 @@ Including my service, there are a total of four services intergrated together in
 ### mongo
   Enter into Mongo shell
 
-  ### use reservation_service
-  Create database and enter into it
-  ### db.createCollection('listingitems');
-  Create listingitems collection
-  ### db.createCollection('bookings');
-  Create bookings collection
-  ### CTL+C
-  Exit Mongo shell
+    ### use reservation_service
+    Create database and enter into it
+    ### db.createCollection('listingitems');
+    Create listingitems collection
+    ### db.createCollection('bookings');
+    Create bookings collection
+    ### CTL+C
+    Exit Mongo shell
 
 ### npm run create-data
   Create two CSV files w/ 10M unique listing records (and 60M supporting bookings records)
