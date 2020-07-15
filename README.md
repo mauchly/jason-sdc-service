@@ -12,11 +12,11 @@
 
 ## Introduction
 
-This is a mock Airbnb Reservations Microservice. It is designed using Service Oriented Architecture to be integrated with three other services that as a whole make up an entire mock Airbnb listings page. I inherited the Front End of this microservice and my main purpose was to stress test the individual microservice (and eventually our application as a whole) and then optimize the entire back end design in order to assure it can operate under high usage circumstances (over 10,000 rps).
+Vacation Rental Reservations Microservice designed using Service-Oriented Architecture to be integrated with three other services that as a whole make up an entire listings page. I inherited the Front-End of this Microservice and my main purpose was to stress test the individual Microservice (and eventually our application as a whole) and then optimize the entire Back-End design in order to assure it can operate under high usage circumstances (over 10,000 rps).
 
 I first created 10 million listing records (which can each be viewed in the browser at localhost:{PORT}/listing/{LISTINGID}) and inserted them into a Postgres database. Each listing record had 6 bookings records, so 60 million more records were generated and stored as well, totaling 70 million records. I then did the same in MongoDB and decided to use MongoDB for our specific use case after benchmarking both databases.
 
-Including my service, there are a total of four services intergrated together in our proxy server. Three other Software Engineers and I worked collaboratively in order to turn our four services into a smooth, single page application, and assure its credibility in a high stress environment. While the service itself is stand-alone, it was built to be part of an entire AirBnb replica of a listing page.
+Including my service, there are a total of four services intergrated together in our proxy server. Three other Software Engineers and I worked collaboratively in order to turn our four services into a smooth, single page application, and assure its credibility in a high stress environment. While the service itself is stand-alone, it was built to be part of an entire listing page.
 
 ## Related Applications
 
