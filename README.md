@@ -12,7 +12,7 @@
 
 ## Introduction
 
-Vacation Rental Reservations Microservice designed using Service-Oriented Architecture to be integrated with three other services that as a whole make up an entire listings page. I inherited the Front-End of this Microservice and my main purpose was to stress test the individual Microservice (and eventually our application as a whole) and then optimize the entire Back-End design in order to assure it can operate under high usage circumstances (over 10,000 rps).
+Mauchly vacation rental Reservations Microservice designed using Service-Oriented Architecture to be integrated with three other services that as a whole make up an entire listings page. I inherited the Front-End of this Microservice and my main purpose was to stress test the individual Microservice (and eventually our application as a whole) and then optimize the entire Back-End design in order to assure it can operate under high usage circumstances (over 10,000 rps).
 
 I first created 10 million listing records (which can each be viewed in the browser at localhost:{PORT}/listing/{LISTINGID}) and inserted them into a Postgres database. Each listing record had 6 bookings records, so 60 million more records were generated and stored as well, totaling 70 million records. I then did the same in MongoDB and decided to use MongoDB for our specific use case after benchmarking both databases.
 
