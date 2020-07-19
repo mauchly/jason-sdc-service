@@ -2,11 +2,9 @@ const db = require('../index.js');
 const { ListingItems, Bookings } = require('../models/models.js');
 
 const getListingInfo = (listingId) => {
-  // console.log('listingId', listingId)
   return new Promise((resolve, reject) => {
     ListingItems.find({id: listingId})
     .then((results) => {
-      // console.log('results', results);
       resolve(results);
     })
     .catch((err) => {
@@ -17,11 +15,9 @@ const getListingInfo = (listingId) => {
 };
 
 const getBookedDates = (listingId) => {
-  // console.log('GBD listingId', listingId);
   return new Promise((resolve, reject) => {
     Bookings.find({listingId: listingId})
     .then((results) => {
-      // console.log('results', results);
       resolve(results);
     })
     .catch((err) => {
@@ -29,10 +25,9 @@ const getBookedDates = (listingId) => {
       reject(err);
     });
   });
-}
+};
 
 const createListingInfo = (listingInfo) => {
-  // console.log('listingInfo', listingInfo);
   return new Promise((resolve, reject) => {
     ListingItems.create(listingInfo)
     .then((results) => {
@@ -50,7 +45,6 @@ const updateListingInfo = (update) => {
   return new Promise((resolve, reject) => {
     ListingItems.findOneAndUpdate({id: update.id}, update, {upsert: true})
     .then((results) => {
-      // console.log('success from updateListingInfo', results);
       resolve(results);
     })
     .catch((err) => {
