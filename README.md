@@ -1,5 +1,7 @@
 # jason-sdc-service
 
+![Alt Text](https://media.giphy.com/media/YocIBsoQydvahPJ2I3/giphy.gif)
+
 ## Table of Contents
 
 1. [Introduction](#Introduction)
